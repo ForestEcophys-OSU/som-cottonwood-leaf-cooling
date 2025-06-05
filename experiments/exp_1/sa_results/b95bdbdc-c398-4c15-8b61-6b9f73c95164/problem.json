@@ -1,0 +1,38 @@
+{
+    "num_vars": 2,
+    "names": [
+        "i_leafAreaIndex",
+        "i_rootBeta"
+    ],
+    "bounds": [
+        [
+            1.88,
+            5.34
+        ],
+        [
+            0.1,
+            1
+        ]
+    ],
+    "outputs": [
+        "P-PD",
+        "P-MD",
+        "GW",
+        "K-plant",
+        "E-MD"
+    ],
+    "plot_settings": {
+        "start_day": 121,
+        "end_day": 236,
+        "average": false,
+        "metric": "mape"
+    },
+    "arguments": {
+        "input": "exp-1_sa-problem.json",
+        "output": "./exp_1",
+        "model": "../../02_program_code",
+        "workers": 30,
+        "samples": 512,
+        "pop": 1
+    }
+}
