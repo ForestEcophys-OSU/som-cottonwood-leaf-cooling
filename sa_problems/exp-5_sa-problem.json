@@ -20,7 +20,7 @@
         "E-MD"
     ],
     "plot_settings": {
-        "start_day": 121,
+        "start_day": 201,
         "end_day": 236,
         "average": false,
         "metric": "mape"
