@@ -1,0 +1,3 @@
+[submodule "garisom"]
+	path = garisom
+	url = https://github.com/colinpannikkat/garisom.git
