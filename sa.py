@@ -396,7 +396,9 @@ def main():
     D = problem['num_vars']
     Y_D = len(problem['outputs'])
 
-    param_values = ssobol.sample(problem, N=SAMPLES)  # shape : (N, D)
+    param_values = ssobol.sample(problem,
+                                 N=SAMPLES,
+                                 calc_second_order=False)  # shape : (N, D)
 
     np.save(f"{RES_DIR}/sample.npy", param_values)
 
