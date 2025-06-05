@@ -29,17 +29,19 @@ def run_single_model(
         MODEL_DIR: str
     ) -> list[np.ndarray]:
     
+    # Get unique TMP_DIR and make directory for specific process
     TMP_DIR = f"{tmp_dir}/{proc_num}"
     TMP_PARAM_FILE = f"{TMP_DIR}/params.csv"
-
     os.makedirs(TMP_DIR, exist_ok=True)
 
+    # Overwrite parameters with sample params
     for i, name in enumerate(in_names):
         params.at[POP_NUM - 1, name] = X[i]
 
+    # Setup parameter, configuration, and output files
     params.to_csv(TMP_PARAM_FILE, index=False)
-
     out = subprocess.DEVNULL
+    CONFIG_FILE = os.path.abspath(CONFIG_FILE)
 
     p = subprocess.run(
         [
@@ -57,6 +59,7 @@ def run_single_model(
     if p.returncode != 0:
         raise RuntimeError(f"Subprocess {i} failed with exit code {p.returncode}")
     
+    # Get species, region, and site to determine output file
     species = params.at[POP_NUM - 1, 'i_sp']
     region = params.at[POP_NUM - 1, 'i_region']
     site = params.at[POP_NUM - 1, 'i_site']
@@ -289,7 +292,7 @@ def main():
     args = parser.parse_args()
 
     PARAM_FILE = "./DBG/parameters.csv"
-    CONFIG_FILE = "../03_test_data/fremont-poplar-data/DBG/configuration.csv"
+    CONFIG_FILE = "./DBG/configuration.csv"
     DATA_FILE = "./DBG/dataset.csv"
     POP_NUM = args.pop
     MAX_WORKERS = args.workers
