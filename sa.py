@@ -4,7 +4,6 @@ from tempfile import TemporaryDirectory
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from argparse import ArgumentParser
 import json
-import uuid
 from collections import defaultdict
 from tqdm import tqdm
 
@@ -14,21 +13,28 @@ import matplotlib.pyplot as plt
 
 from SALib.sample import sobol as ssobol
 from SALib.analyze import sobol as asobol
-from sklearn.metrics import mean_squared_error, r2_score, root_mean_squared_error, mean_absolute_percentage_error, median_absolute_error
+from sklearn.metrics import (
+    mean_squared_error,
+    r2_score,
+    root_mean_squared_error,
+    mean_absolute_percentage_error,
+    median_absolute_error
+)
 from datetime import datetime
 
+
 def run_single_model(
-        X: np.ndarray, 
-        in_names: list, 
-        out_names: list,
-        proc_num: int, 
-        tmp_dir: str,
-        params: pd.DataFrame,
-        POP_NUM: int,
-        CONFIG_FILE: str,
-        MODEL_DIR: str
-    ) -> list[np.ndarray]:
-    
+    X: np.ndarray,
+    in_names: list,
+    out_names: list,
+    proc_num: int,
+    tmp_dir: str,
+    params: pd.DataFrame,
+    POP_NUM: int,
+    CONFIG_FILE: str,
+    MODEL_DIR: str
+) -> list[np.ndarray]:
+
     # Get unique TMP_DIR and make directory for specific process
     TMP_DIR = f"{tmp_dir}/{proc_num}"
     TMP_PARAM_FILE = f"{TMP_DIR}/params.csv"
@@ -41,7 +47,7 @@ def run_single_model(
     # Setup parameter, configuration, and output files
     params.to_csv(TMP_PARAM_FILE, index=False)
     out = subprocess.DEVNULL
-    CONFIG_FILE = os.path.abspath(CONFIG_FILE)
+    CONFIG_FILE = os.path.abspath(CONFIG_FILE) 
 
     p = subprocess.run(
         [
@@ -57,34 +63,41 @@ def run_single_model(
     )
 
     if p.returncode != 0:
-        raise RuntimeError(f"Subprocess {i} failed with exit code {p.returncode}")
-    
+        raise RuntimeError(
+            f"Subprocess {i} failed with exit code {p.returncode}"
+        )
+
     # Get species, region, and site to determine output file
     species = params.at[POP_NUM - 1, 'i_sp']
     region = params.at[POP_NUM - 1, 'i_region']
     site = params.at[POP_NUM - 1, 'i_site']
 
-    output_file = os.path.join(TMP_DIR, f"timesteps_output_{species}_{region}_{site}.csv")
+    output_file = os.path.join(
+        TMP_DIR, f"timesteps_output_{species}_{region}_{site}.csv"
+    )
     if not os.path.exists(output_file):
-        raise FileNotFoundError(f"Expected output file not found: {output_file}")
-    
+        raise FileNotFoundError(
+            f"Expected output file not found: {output_file}"
+        )
+
     output_file = pd.read_csv(output_file)
-    
+
     out = output_file[out_names].to_numpy(dtype=float)  # T x Y_D
 
     return out
 
+
 def wrapped_garisom(
-        X: np.ndarray, 
-        in_names: list,
-        out_names: list, 
-        MAX_WORKERS: int,
-        MODEL_DIR: str,
-        params: pd.DataFrame,
-        POP_NUM: int,
-        CONFIG_FILE: str,
-        T: int
-    ) -> np.ndarray:
+    X: np.ndarray,
+    in_names: list,
+    out_names: list,
+    MAX_WORKERS: int,
+    MODEL_DIR: str,
+    params: pd.DataFrame,
+    POP_NUM: int,
+    CONFIG_FILE: str,
+    T: int
+) -> np.ndarray:
 
     N, D = X.shape
     Y_D = len(out_names)
@@ -98,11 +111,11 @@ def wrapped_garisom(
         with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
             futures = {
                 executor.submit(
-                    run_single_model, 
-                    X[i, :], 
+                    run_single_model,
+                    X[i, :],
                     in_names,
-                    out_names, 
-                    i, 
+                    out_names,
+                    i,
                     tmp,
                     params,
                     POP_NUM,
@@ -125,22 +138,23 @@ def wrapped_garisom(
 
     return res
 
+
 def plot(
-        first_order_indices, # shape: (Y_D, D, T)
-        second_order_indices,
-        outputs,             # shape: (T, N, Y_D)
-        param_values, 
-        plt_dir,
-        res_dir,
-        T,
-        problem,
-        POP_NUM
-    ):
+    first_order_indices,  # shape: (Y_D, D, T)
+    second_order_indices,
+    outputs,             # shape: (T, N, Y_D)
+    param_values,
+    plt_dir,
+    res_dir,
+    T,
+    problem,
+    POP_NUM
+):
 
     # Plot settings
     start_day = problem['plot_settings']['start_day']
     end_day = problem['plot_settings']['end_day']
-    average = problem['plot_settings']['average'] # average over measurement periods
+    # average = problem['plot_settings']['average']
     metric = problem['plot_settings']['metric']
 
     # Measurement periods in the day (rounded-down and up)
@@ -186,13 +200,21 @@ def plot(
         fig, axes = plt.subplots(2, 1, figsize=(10, 8), sharex=True)
 
         for i, name in enumerate(problem['names']):
-            axes[0].scatter(time, first_order_indices[idx, i, :], label=f'{name}')
+            axes[0].scatter(time,
+                            first_order_indices[idx, i, :],
+                            label=f'{name}')
             if idx + 1 < len(problem['outputs']):
-                axes[1].scatter(time, first_order_indices[idx + 1, i, :], label=f'{name}')
+                axes[1].scatter(time,
+                                first_order_indices[idx + 1, i, :],
+                                label=f'{name}')
 
-        axes[0].set_title(f'First-Order Sobol Indices for {problem["outputs"][idx]}')
+        axes[0].set_title(
+            f'First-Order Sobol Indices for {problem["outputs"][idx]}'
+        )
         if idx + 1 < len(problem['outputs']):
-            axes[1].set_title(f'First-Order Sobol Indices for {problem["outputs"][idx + 1]}')
+            axes[1].set_title(
+                f'First-Order Sobol Indices for {problem["outputs"][idx + 1]}'
+            )
 
         for ax in axes:
             ax.set_ylabel('Sobol Index')
@@ -203,16 +225,24 @@ def plot(
         plt.tight_layout()
 
         if idx + 1 < len(problem["outputs"]):
-            plt.savefig(f"{plt_dir}/first-order_{problem['outputs'][idx]}_{problem['outputs'][idx + 1]}.png")
+            plt.savefig(
+                f"{plt_dir}/first-order_{problem['outputs'][idx]}_"
+                f"{problem['outputs'][idx + 1]}.png"
+            )
         else:
             plt.savefig(f"{plt_dir}/first-order_{problem['outputs'][idx]}.png")
 
     for idx, output_name in enumerate(problem['outputs']):
-        fig, axes = plt.subplots(len(problem['names']), 1, figsize=(10, 8), sharex=True)
+        fig, axes = plt.subplots(len(problem['names']),
+                                 1,
+                                 figsize=(10, 8),
+                                 sharex=True)
 
         for i, name in enumerate(problem['names']):
             plt.figure(figsize=(10, 6))
-            plt.scatter(param_values[:, i], outputs[:, :, idx].mean(axis=0), label=f'{output_name}')
+            plt.scatter(param_values[:, i],
+                        outputs[:, :, idx].mean(axis=0),
+                        label=f'{output_name}')
             plt.title(f'Mean Output ({output_name}) vs {name}')
             plt.xlabel(name)
             plt.ylabel('Mean Output')
@@ -250,7 +280,9 @@ def plot(
             raise ValueError(f"Unknown output name: {output_name}")
 
         # Filter ground data based on julian-day and drop NaN values
-        col_ground = ground[ground['julian-day'].between(start_day, end_day)][output_name].dropna()
+        col_ground = ground[
+            ground['julian-day'].between(start_day, end_day)
+        ][output_name].dropna()
 
         # Align predictions with the filtered ground data
         col_pred = outputs[:, :, idx]  # (N, T)
@@ -258,9 +290,11 @@ def plot(
         pred_values = col_pred.loc[col_ground.index].T.to_numpy()
 
         # Get N copies of ground values
-        ground_values = np.array([col_ground.copy().to_numpy() for _ in range(outputs[:, :, idx].shape[1])])
+        ground_values = np.array([col_ground.copy().to_numpy()
+                                  for _ in range(outputs[:, :, idx].shape[1])])
 
-        errors[output_name] = cmp_pred_to_ground_metrics(ground_values, pred_values)
+        errors[output_name] = cmp_pred_to_ground_metrics(ground_values,
+                                                         pred_values)
 
     # Save errors
     with open(os.path.join(res_dir, "errors.json"), "w") as f:
@@ -270,7 +304,10 @@ def plot(
     for output_name, error_values in errors.items():
         for i, param in enumerate(problem['names']):
             plt.figure(figsize=(10, 6))
-            plt.scatter(param_values[:, i], error_values[metric], marker='o', label=f'{metric}')
+            plt.scatter(param_values[:, i],
+                        error_values[metric],
+                        marker='o',
+                        label=f'{metric}')
             plt.title(f'Error Metrics Across Samples for {output_name}')
             plt.xlabel(f'{param}')
             # plt.ylabel('Mean Absolute Percent Error (MAPE)')
@@ -280,14 +317,45 @@ def plot(
             plt.savefig(f"{plt_dir}/error_{metric}_{param}_{output_name}.png")
             plt.close()
 
+
 def main():
     parser = ArgumentParser()
-    parser.add_argument("--input", "-i", help="File path to sensitivity analysis input file.", required=True, type=str)
-    parser.add_argument("--output", "-o", help="Directory path for output files.", default=".", type=str)
-    parser.add_argument("--model", "-m", help="Directory path to model executable.",required=True, type=str)
-    parser.add_argument("--workers", "-w", help="Number of workers to run SA with.", default=4, type=int)
-    parser.add_argument("--samples", "-s", help="Number of samples to run SA with, must be a multiple of two.", default=2**4, type=int)
-    parser.add_argument("--pop", "-p", help="Population number to run for model.", default=1, type=int)
+    parser.add_argument(
+        "--input", "-i",
+        help="File path to sensitivity analysis input file.",
+        required=True,
+        type=str
+    )
+    parser.add_argument(
+        "--output", "-o",
+        help="Directory path for output files.",
+        default=".",
+        type=str
+    )
+    parser.add_argument(
+        "--model", "-m",
+        help="Directory path to model executable.",
+        required=True,
+        type=str
+    )
+    parser.add_argument(
+        "--workers", "-w",
+        help="Number of workers to run SA with.",
+        default=4,
+        type=int
+    )
+    parser.add_argument(
+        "--samples", "-s",
+        help="Number of samples to run SA with, must be a multiple of two.",
+        default=2**4,
+        type=int
+    )
+    parser.add_argument(
+        "--pop", "-p",
+        help="Population number to run for model.",
+        default=1,
+        type=int
+    )
 
     args = parser.parse_args()
 
@@ -322,13 +390,13 @@ def main():
     # Save the problem definition to a JSON file in the results directory
     problem_file = os.path.join(RES_DIR, "problem.json")
     with open(problem_file, "w") as f:
-        problem['arguments'] = vars(args) # add arguments to problem
+        problem['arguments'] = vars(args)  # add arguments to problem
         json.dump(problem, f, indent=4)
 
     D = problem['num_vars']
     Y_D = len(problem['outputs'])
 
-    param_values = ssobol.sample(problem, N=SAMPLES) # shape : (N, D)
+    param_values = ssobol.sample(problem, N=SAMPLES)  # shape : (N, D)
 
     np.save(f"{RES_DIR}/sample.npy", param_values)
 
@@ -373,6 +441,7 @@ def main():
     )
 
     print("Finished.")
+
 
 if __name__ == "__main__":
     main()
