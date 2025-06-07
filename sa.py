@@ -423,7 +423,9 @@ def main():
     print("Analyzing indices.")
     for t in range(T):
         for i, out in enumerate(problem['outputs']):
-            si = asobol.analyze(problem, Y[t, :, i], print_to_console=False)
+            si = asobol.analyze(problem, Y[t, :, i],
+                                print_to_console=False,
+                                calc_second_order=False)
             first_order_indices[i, :, t] = np.clip(si['S1'], 0, 1)
             # second_order_indices[i, :, t] = np.clip(si['S2'], 0, 1)
 
