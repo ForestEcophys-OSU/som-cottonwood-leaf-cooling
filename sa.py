@@ -46,9 +46,7 @@ def run_single_model(
 
     # Setup parameter, configuration, and output files
     params.to_csv(TMP_PARAM_FILE, index=False)
-    # out = subprocess.DEVNULL
-    os.makedirs("/nfs/hpc/share/pannikkc/fremont-cottonwood-dbg-garisom/model_outs/", exist_ok=True)
-    out = open("/nfs/hpc/share/pannikkc/fremont-cottonwood-dbg-garisom/model_outs/out.txt", "a")
+    out = subprocess.DEVNULL
     CONFIG_FILE = os.path.abspath(CONFIG_FILE)
 
     p = subprocess.run(
