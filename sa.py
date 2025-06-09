@@ -64,7 +64,7 @@ def run_single_model(
 
     if p.returncode != 0:
         raise RuntimeError(
-            f"Subprocess {i} failed with exit code {p.returncode}"
+            f"Subprocess {proc_num} failed with exit code {p.returncode}"
         )
 
     # Get species, region, and site to determine output file
