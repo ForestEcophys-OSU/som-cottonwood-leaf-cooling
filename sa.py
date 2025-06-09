@@ -285,6 +285,7 @@ def plot(
         ][output_name].dropna()
 
         # Align predictions with the filtered ground data
+        outputs = outputs.dropna(axis=0, how='any')
         col_pred = outputs[:, :, idx]  # (N, T)
         col_pred = pd.DataFrame(col_pred)
         pred_values = col_pred.loc[col_ground.index].T.to_numpy()
