@@ -285,14 +285,13 @@ def plot(
         ][output_name].dropna()
 
         # Align predictions with the filtered ground data
-        outputs = outputs.dropna(axis=0, how='any')
         col_pred = outputs[:, :, idx]  # (N, T)
-        col_pred = pd.DataFrame(col_pred)
+        col_pred = pd.DataFrame(col_pred).dropna(axis=0, how='any')
         pred_values = col_pred.loc[col_ground.index].T.to_numpy()
 
         # Get N copies of ground values
         ground_values = np.array([col_ground.copy().to_numpy()
-                                  for _ in range(outputs[:, :, idx].shape[1])])
+                                  for _ in range(pred_values.shape[0])])
 
         errors[output_name] = cmp_pred_to_ground_metrics(ground_values,
                                                          pred_values)
