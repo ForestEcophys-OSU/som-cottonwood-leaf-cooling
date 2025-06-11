@@ -32,7 +32,9 @@ def run_single_model(
     params: pd.DataFrame,
     POP_NUM: int,
     CONFIG_FILE: str,
-    MODEL_DIR: str
+    MODEL_DIR: str,
+    VERBOSE: bool,
+    RES_DIR: str
 ) -> list[np.ndarray]:
 
     # Get unique TMP_DIR and make directory for specific process
@@ -46,7 +48,14 @@ def run_single_model(
 
     # Setup parameter, configuration, and output files
     params.to_csv(TMP_PARAM_FILE, index=False)
-    out = subprocess.DEVNULL
+
+    # Check if verbosity is enabled for saving model stdout
+    if VERBOSE:
+        os.makedirs(f"{RES_DIR}/stdout/", exist_ok=True)
+        out = open(f"{RES_DIR}/stdout/{proc_num}.txt", "w")
+    else:
+        out = subprocess.DEVNULL
+
     CONFIG_FILE = os.path.abspath(CONFIG_FILE)
 
     p = subprocess.run(
@@ -61,6 +70,9 @@ def run_single_model(
         stdout=out,
         stderr=out
     )
+
+    if VERBOSE:
+        out.close()
 
     if p.returncode != 0:
         raise RuntimeError(
@@ -82,9 +94,9 @@ def run_single_model(
 
     output_file = pd.read_csv(output_file)
 
-    out = output_file[out_names].to_numpy(dtype=float)  # T x Y_D
+    output = output_file[out_names].to_numpy(dtype=float)  # T x Y_D
 
-    return out
+    return output
 
 
 def wrapped_garisom(
@@ -96,7 +108,9 @@ def wrapped_garisom(
     params: pd.DataFrame,
     POP_NUM: int,
     CONFIG_FILE: str,
-    T: int
+    T: int,
+    VERBOSE: bool,
+    RES_DIR: str
 ) -> np.ndarray:
 
     N, D = X.shape
@@ -120,7 +134,9 @@ def wrapped_garisom(
                     params,
                     POP_NUM,
                     CONFIG_FILE,
-                    MODEL_DIR
+                    MODEL_DIR,
+                    VERBOSE,
+                    RES_DIR
                 ): i for i in range(N)
             }
 
@@ -131,12 +147,63 @@ def wrapped_garisom(
                     out = future.result()
                     res[:, idx, :] = out
                 except Exception as e:
-                    print(f"Subprocess for index {idx} failed: {e}") 
+                    print(f"Subprocess for index {idx} failed: {e}")
                     res[:, idx, :] = np.nan
 
         pbar.close()
 
     return res
+
+
+def calc_errors(
+    outputs,
+    ground,
+    problem
+):
+    start_day = problem['plot_settings']['start_day']
+    end_day = problem['plot_settings']['end_day']
+
+    def cmp_pred_to_ground_metrics(n_ground, n_pred):
+
+        fits = defaultdict(list)
+
+        for ground, pred in zip(n_ground, n_pred):
+
+            mse = mean_squared_error(ground, pred)
+            rmse = root_mean_squared_error(ground, pred)
+            mape = mean_absolute_percentage_error(ground, pred)
+            made = median_absolute_error(ground, pred)
+            r2 = r2_score(ground, pred)
+
+            fits['mse'].append(mse)
+            fits['rmse'].append(rmse)
+            fits['mape'].append(mape)
+            fits['made'].append(made)
+            fits['r2'].append(r2)
+
+        return fits
+
+    errors = {}
+    for idx, output_name in enumerate(problem['outputs']):
+
+        # Filter ground data based on julian-day and drop NaN values
+        col_ground = ground[
+            ground['julian-day'].between(start_day, end_day)
+        ][output_name].dropna()
+
+        # Align predictions with the filtered ground data
+        col_pred = outputs[:, :, idx]  # (N, T)
+        col_pred = pd.DataFrame(col_pred)
+        pred_values = col_pred.loc[col_ground.index].T.to_numpy()
+
+        # Get N copies of ground values
+        ground_values = np.array([col_ground.copy().to_numpy()
+                                  for _ in range(pred_values.shape[0])])
+
+        errors[output_name] = cmp_pred_to_ground_metrics(ground_values,
+                                                         pred_values)
+
+    return errors
 
 
 def plot(
@@ -152,35 +219,9 @@ def plot(
 ):
 
     # Plot settings
-    start_day = problem['plot_settings']['start_day']
-    end_day = problem['plot_settings']['end_day']
     # average = problem['plot_settings']['average']
     metric = problem['plot_settings']['metric']
 
-    # Measurement periods in the day (rounded-down and up)
-    time_offsets = {
-        "GW": {
-            "am": (7, 9),
-            "pm": (15, 17)
-        },
-        "E-MD": {
-            "am": (7, 9),
-            "pm": (15, 17)
-        },
-        "K-plant": {
-            "am": (7, 9),
-            "pm": (15, 17)
-        },
-        "P-PD": {
-            "am": (3, 5),
-            "pm": (3, 5)
-        },
-        "P-MD": {
-            "am": (13, 15),
-            "pm": (13, 15)
-        }
-    }
-        
     ground = None
     match POP_NUM:
         case 1:
@@ -193,7 +234,7 @@ def plot(
             ground = pd.read_csv("data/nrv_hourly_data.csv")
         case _:
             raise Exception("Incorrect POP_NUM!")
-    
+
     time = np.arange(T)
 
     for idx in range(0, len(problem['outputs']), 2):
@@ -253,48 +294,7 @@ def plot(
             plt.savefig(f"{plt_dir}/mean_output_{output_name}_vs_{name}.png")
             plt.close(fig)
 
-    def cmp_pred_to_ground_metrics(n_ground, n_pred):
-
-        fits = defaultdict(list)
-
-        for ground, pred in zip(n_ground, n_pred):
-            
-            mse = mean_squared_error(ground, pred)
-            rmse = root_mean_squared_error(ground, pred)
-            mape = mean_absolute_percentage_error(ground, pred)
-            made = median_absolute_error(ground, pred)
-            r2 = r2_score(ground, pred)
-
-            fits['mse'].append(mse)
-            fits['rmse'].append(rmse)
-            fits['mape'].append(mape)
-            fits['made'].append(made)
-            fits['r2'].append(r2)
-
-        return fits
-
-    errors = {}
-    for idx, output_name in enumerate(problem['outputs']):
-
-        if output_name not in time_offsets:
-            raise ValueError(f"Unknown output name: {output_name}")
-
-        # Filter ground data based on julian-day and drop NaN values
-        col_ground = ground[
-            ground['julian-day'].between(start_day, end_day)
-        ][output_name].dropna()
-
-        # Align predictions with the filtered ground data
-        col_pred = outputs[:, :, idx]  # (N, T)
-        col_pred = pd.DataFrame(col_pred)
-        pred_values = col_pred.loc[col_ground.index].T.to_numpy()
-
-        # Get N copies of ground values
-        ground_values = np.array([col_ground.copy().to_numpy()
-                                  for _ in range(pred_values.shape[0])])
-
-        errors[output_name] = cmp_pred_to_ground_metrics(ground_values,
-                                                         pred_values)
+    errors = calc_errors(outputs, ground, problem)
 
     # Save errors
     with open(os.path.join(res_dir, "errors.json"), "w") as f:
@@ -356,6 +356,11 @@ def main():
         default=1,
         type=int
     )
+    parser.add_argument(
+        "--verbose", "-v",
+        help="Enable saving of model stdout.",
+        action="store_true"
+    )
 
     args = parser.parse_args()
 
@@ -363,6 +368,7 @@ def main():
     CONFIG_FILE = "./DBG/configuration.csv"
     DATA_FILE = "./DBG/dataset.csv"
     POP_NUM = args.pop
+    VERBOSE = args.verbose
     MAX_WORKERS = args.workers
     SAMPLES = args.samples
     MODEL_DIR = os.path.join(args.model)
@@ -404,7 +410,7 @@ def main():
 
     print("Running model with samples.")
     Y = wrapped_garisom(    # returns shape: (T, N, Y_D)
-        param_values, 
+        param_values,
         problem['names'],
         problem['outputs'],
         MAX_WORKERS,
@@ -412,8 +418,12 @@ def main():
         params,
         POP_NUM,
         CONFIG_FILE,
-        T
+        T,
+        VERBOSE,
+        RES_DIR
     )
+
+    Y = np.nan_to_num(Y)  # Convert all NaN values to 0
 
     np.save(f"{RES_DIR}/model_output.npy", Y)
 
