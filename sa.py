@@ -208,8 +208,8 @@ def calc_errors(
 
 def plot(
     first_order_indices,  # shape: (Y_D, D, T)
-    second_order_indices,
-    outputs,             # shape: (T, N, Y_D)
+    total_order_indices,  # shape: (Y_D, D, T)
+    outputs,              # shape: (T, N, Y_D)
     param_values,
     plt_dir,
     res_dir,
@@ -237,6 +237,7 @@ def plot(
 
     time = np.arange(T)
 
+    # Plot First-Order Sobol Indices
     for idx in range(0, len(problem['outputs']), 2):
         fig, axes = plt.subplots(2, 1, figsize=(10, 8), sharex=True)
 
@@ -272,6 +273,45 @@ def plot(
             )
         else:
             plt.savefig(f"{plt_dir}/first-order_{problem['outputs'][idx]}.png")
+        plt.close(fig)
+
+    # Plot Total-Order Sobol Indices
+    for idx in range(0, len(problem['outputs']), 2):
+        fig, axes = plt.subplots(2, 1, figsize=(10, 8), sharex=True)
+
+        for i, name in enumerate(problem['names']):
+            axes[0].scatter(time,
+                            total_order_indices[idx, i, :],
+                            label=f'{name}')
+            if idx + 1 < len(problem['outputs']):
+                axes[1].scatter(time,
+                                total_order_indices[idx + 1, i, :],
+                                label=f'{name}')
+
+        axes[0].set_title(
+            f'Total-Order Sobol Indices for {problem["outputs"][idx]}'
+        )
+        if idx + 1 < len(problem['outputs']):
+            axes[1].set_title(
+                f'Total-Order Sobol Indices for {problem["outputs"][idx + 1]}'
+            )
+
+        for ax in axes:
+            ax.set_ylabel('Sobol Index')
+            ax.legend()
+            ax.grid(True)
+
+        axes[1].set_xlabel('Time')
+        plt.tight_layout()
+
+        if idx + 1 < len(problem["outputs"]):
+            plt.savefig(
+                f"{plt_dir}/total-order_{problem['outputs'][idx]}_"
+                f"{problem['outputs'][idx + 1]}.png"
+            )
+        else:
+            plt.savefig(f"{plt_dir}/total-order_{problem['outputs'][idx]}.png")
+        plt.close(fig)
 
     for idx, output_name in enumerate(problem['outputs']):
         fig, axes = plt.subplots(len(problem['names']),
@@ -428,23 +468,35 @@ def main():
     np.save(f"{RES_DIR}/model_output.npy", Y)
 
     first_order_indices = np.empty((Y_D, D, T))
-    second_order_indices = np.empty((Y_D, D, T))
+    first_order_conf = np.empty((Y_D, D, T))
+    total_order_indices = np.empty((Y_D, D, T))
+    total_order_conf = np.empty((Y_D, D, T))
+    # second_order_indices = np.empty((Y_D, D, T))  # Not used
 
     print("Analyzing indices.")
     for t in range(T):
         for i, out in enumerate(problem['outputs']):
             si = asobol.analyze(problem, Y[t, :, i],
                                 print_to_console=False,
-                                calc_second_order=False)
+                                calc_second_order=False,
+                                # parallel=True,
+                                # n_processors=MAX_WORKERS
+                                )
             first_order_indices[i, :, t] = np.clip(si['S1'], 0, 1)
+            first_order_conf[i, :, t] = si['S1_conf']
+            total_order_indices[i, :, t] = np.clip(si['ST'], 0, 1)
+            total_order_conf[i, :, t] = si['ST_conf']
             # second_order_indices[i, :, t] = np.clip(si['S2'], 0, 1)
 
     np.save(f"{RES_DIR}/first_order_indices.npy", first_order_indices)
+    np.save(f"{RES_DIR}/first_order_conf.npy", first_order_conf)
+    np.save(f"{RES_DIR}/total_order_indices.npy", total_order_indices)
+    np.save(f"{RES_DIR}/total_order_conf.npy", total_order_conf)
 
     print("Creating plots.")
     plot(
         first_order_indices,
-        second_order_indices,
+        total_order_indices,
         Y,
         param_values,
         PLT_DIR,
