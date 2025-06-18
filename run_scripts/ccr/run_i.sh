@@ -1,11 +1,13 @@
 # Generic SA script to run an i-th experiment
 
 EXP_NUM=$1
-POP=$2
-N=$3
-W=$4
+N=$2
+W=$3
 
-mkdir -p experiments/exp_${EXP_NUM}/
+EXP_DIR="experiments/ccr/exp_${EXP_NUM}"
+EXP_OUT="$EXP_DIR/exp-${EXP_NUM}.out"
 
-echo "$(date '+%Y-%m-%d %H:%M:%S') - EXPERIMENT ${EXP_NUM} POPULATION $POP" >> experiments/exp_${EXP_NUM}/exp-${EXP_NUM}.out
-nohup python sa.py -i sa_problems/ccr/exp-${EXP_NUM}_sa-problem.json -o ./experiments/exp_${EXP_NUM} -m ./garisom/02_program_code -w $W -s $N -p $POP 2>&1 >> experiments/exp_${EXP_NUM}/exp-${EXP_NUM}.out &
+mkdir -p $EXP_DIR
+
+echo "$(date '+%Y-%m-%d %H:%M:%S') - EXPERIMENT ${EXP_NUM} POPULATION $POP" >> $EXP_OUT
+nohup python sa.py -i sa_problems/ccr/exp-${EXP_NUM}_sa-problem.json -o $EXP_DIR -m ./garisom/02_program_code -w $W -s $N -p 1 2>&1 >> $EXP_OUT &
