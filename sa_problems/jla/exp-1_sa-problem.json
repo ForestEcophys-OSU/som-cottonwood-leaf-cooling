@@ -1,0 +1,32 @@
+{
+    "num_vars": 6,
+    "names": [
+        "i_baperga",
+        "i_height",
+        "i_leafAreaIndex", 
+        "i_rootBeta",
+        "i_fieldCapFrac",
+        "i_fieldCapPercInit"
+    ],
+    "bounds": [
+        [32.04, 42.39],
+        [1.68, 2.07],
+        [0.8708, 5.8492],
+        [0, 1],
+        [0, 1],
+        [0, 100]
+    ],
+    "outputs": [
+        "P-PD", 
+        "P-MD",
+        "GW",
+        "K-plant",
+        "E-MD"
+    ],
+    "plot_settings": {
+        "start_day": 201,
+        "end_day": 236,
+        "average": false,
+        "metric": "mape"
+    }
+}
