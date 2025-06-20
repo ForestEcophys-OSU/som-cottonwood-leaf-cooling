@@ -210,30 +210,16 @@ def plot(
     first_order_indices,  # shape: (Y_D, D, T)
     total_order_indices,  # shape: (Y_D, D, T)
     outputs,              # shape: (T, N, Y_D)
+    errors,
     param_values,
     plt_dir,
-    res_dir,
     T,
     problem,
-    POP_NUM
 ):
 
     # Plot settings
     # average = problem['plot_settings']['average']
     metric = problem['plot_settings']['metric']
-
-    ground = None
-    match POP_NUM:
-        case 1:
-            ground = pd.read_csv("data/ccr_hourly_data.csv")
-        case 2:
-            ground = pd.read_csv("data/jla_hourly_data.csv")
-        case 3:
-            ground = pd.read_csv("data/tsz_hourly_data.csv")
-        case 4:
-            ground = pd.read_csv("data/nrv_hourly_data.csv")
-        case _:
-            raise Exception("Incorrect POP_NUM!")
 
     time = np.arange(T)
 
@@ -333,12 +319,6 @@ def plot(
             plt.tight_layout()
             plt.savefig(f"{plt_dir}/mean_output_{output_name}_vs_{name}.png")
             plt.close(fig)
-
-    errors = calc_errors(outputs, ground, problem)
-
-    # Save errors
-    with open(os.path.join(res_dir, "errors.json"), "w") as f:
-        json.dump(errors, f, indent=4)
 
     # Plot and save the errors for each output in errors
     for output_name, error_values in errors.items():
@@ -472,8 +452,13 @@ def main():
     total_order_indices = np.empty((Y_D, D, T))
     total_order_conf = np.empty((Y_D, D, T))
     # second_order_indices = np.empty((Y_D, D, T))  # Not used
+    error_first_order_indices = np.empty((Y_D, D))
+    error_first_order_conf = np.empty((Y_D, D))
+    error_total_order_indices = np.empty((Y_D, D))
+    error_total_order_conf = np.empty((Y_D, D))
+    # second_order_indices = np.empty((Y_D, D))  # Not used
 
-    print("Analyzing indices.")
+    print("Analyzing output dimension indices.")
     for t in range(T):
         for i, out in enumerate(problem['outputs']):
             si = asobol.analyze(problem, Y[t, :, i],
@@ -493,17 +478,61 @@ def main():
     np.save(f"{RES_DIR}/total_order_indices.npy", total_order_indices)
     np.save(f"{RES_DIR}/total_order_conf.npy", total_order_conf)
 
+    ground = None
+    match POP_NUM:
+        case 1:
+            ground = pd.read_csv("data/ccr_hourly_data.csv")
+        case 2:
+            ground = pd.read_csv("data/jla_hourly_data.csv")
+        case 3:
+            ground = pd.read_csv("data/tsz_hourly_data.csv")
+        case 4:
+            ground = pd.read_csv("data/nrv_hourly_data.csv")
+        case _:
+            raise Exception("Incorrect POP_NUM!")
+
+    errors = calc_errors(Y, ground, problem)
+
+    # Save errors
+    with open(os.path.join(RES_DIR, "errors.json"), "w") as f:
+        json.dump(errors, f, indent=4)
+
+    print("Analyzing error indices.")
+    metric = problem['plot_settings']['metric']
+    np_errors = np.array([errors[out][metric] for out in problem['outputs']])
+
+    for i, out in enumerate(problem['outputs']):
+        si = asobol.analyze(problem, np_errors[i, :],
+                            print_to_console=False,
+                            calc_second_order=False,
+                            # parallel=True,
+                            # n_processors=MAX_WORKERS
+                            )
+        error_first_order_indices[i, :] = np.clip(si['S1'], 0, 1)
+        error_first_order_conf[i, :] = si['S1_conf']
+        error_total_order_indices[i, :] = np.clip(si['ST'], 0, 1)
+        error_total_order_conf[i, :] = si['ST_conf']
+        # second_order_indices[i, :] = np.clip(si['S2'], 0, 1)
+
+    np.save(f"{RES_DIR}/error_first_order_indices.npy",
+            error_first_order_indices)
+    np.save(f"{RES_DIR}/error_first_order_conf.npy",
+            error_first_order_conf)
+    np.save(f"{RES_DIR}/error_total_order_indices.npy",
+            error_total_order_indices)
+    np.save(f"{RES_DIR}/error_total_order_conf.npy",
+            error_total_order_conf)
+
     print("Creating plots.")
     plot(
         first_order_indices,
         total_order_indices,
         Y,
+        errors,
         param_values,
         PLT_DIR,
-        RES_DIR,
         T,
         problem,
-        POP_NUM
     )
 
     print("Finished.")
