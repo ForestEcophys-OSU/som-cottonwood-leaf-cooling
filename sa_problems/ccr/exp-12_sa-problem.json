@@ -1,12 +1,13 @@
 {
-    "num_vars": 6,
+    "num_vars": 7,
     "names": [
         "i_baperga",
         "i_height",
         "i_leafAreaIndex", 
         "i_rootBeta",
         "i_fieldCapFrac",
-        "i_fieldCapPercInit"
+        "i_fieldCapPercInit",
+        "i_kmaxTree"
     ],
     "bounds": [
         [38.16, 49.06],
@@ -14,7 +15,8 @@
         [0.2192, 7.0008],
         [0, 1],
         [0, 1],
-        [0, 100]
+        [0, 100],
+        [14, 463]
     ],
     "outputs": [
         "P-PD", 
