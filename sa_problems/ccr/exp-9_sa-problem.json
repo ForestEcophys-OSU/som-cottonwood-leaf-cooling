@@ -25,7 +25,7 @@
     ],
     "plot_settings": {
         "start_day": 201,
-        "end_day": 236,
+        "end_day": 237,
         "average": false,
         "metric": "mape"
     }

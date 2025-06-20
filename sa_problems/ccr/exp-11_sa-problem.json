@@ -7,10 +7,10 @@
         "i_fieldCapPercInit"
     ],
     "bounds": [
-        [1.88, 5.34],
-        [0.1, 1],
-        [0.1, 1.0],
-        [10, 100]
+        [0.2192, 7.0008],
+        [0, 1],
+        [0, 1],
+        [0, 100]
     ],
     "outputs": [
         "P-PD", 
@@ -21,7 +21,7 @@
     ],
     "plot_settings": {
         "start_day": 201,
-        "end_day": 236,
+        "end_day": 237,
         "average": false,
         "metric": "mape"
     }
