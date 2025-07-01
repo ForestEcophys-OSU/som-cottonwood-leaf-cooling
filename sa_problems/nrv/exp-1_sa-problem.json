@@ -1,0 +1,35 @@
+{
+    "num_vars": 7,
+    "names": [
+        "i_baperga",
+        "i_height",
+        "i_leafAreaIndex", 
+        "i_rootBeta",
+        "i_fieldCapFrac",
+        "i_fieldCapPercInit",
+        "i_kmaxTree"
+    ],
+    "bounds": [
+        [30.7045, 36.2721],
+        [1.4950, 1.7423],
+        [0.2192, 7.0008],
+        [0, 1],
+        [0, 1],
+        [0, 100],
+        [53.9296, 555.1672]
+    ],
+    "outputs": [
+        "P-PD", 
+        "P-MD",
+        "GW",
+        "K-plant",
+        "E-MD",
+        "leaftemp"
+    ],
+    "plot_settings": {
+        "start_day": 201,
+        "end_day": 237,
+        "average": false,
+        "metric": "mape"
+    }
+}
