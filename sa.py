@@ -158,6 +158,7 @@ def wrapped_garisom(
 def calc_errors(
     outputs,
     ground,
+    leaftemp,
     problem
 ):
     start_day = problem['plot_settings']['start_day']
@@ -187,9 +188,14 @@ def calc_errors(
     for idx, output_name in enumerate(problem['outputs']):
 
         # Filter ground data based on julian-day and drop NaN values
-        col_ground = ground[
-            ground['julian-day'].between(start_day, end_day)
-        ][output_name].dropna()
+        if output_name == "leaftemp":
+            col_ground = leaftemp[
+                ground['julian-day'].between(start_day, end_day)
+            ][output_name].dropna()
+        else:
+            col_ground = ground[
+                ground['julian-day'].between(start_day, end_day)
+            ][output_name].dropna()
 
         # Align predictions with the filtered ground data
         col_pred = outputs[:, :, idx]  # (N, T)
@@ -482,16 +488,20 @@ def main():
     match POP_NUM:
         case 1:
             ground = pd.read_csv("data/ccr_hourly_data.csv")
+            leaftemp = pd.read_csv("data/ccr_leaftemp.csv")
         case 2:
             ground = pd.read_csv("data/jla_hourly_data.csv")
+            leaftemp = pd.read_csv("data/jla_leaftemp.csv")
         case 3:
             ground = pd.read_csv("data/tsz_hourly_data.csv")
+            leaftemp = pd.read_csv("data/tsz_leaftemp.csv")
         case 4:
             ground = pd.read_csv("data/nrv_hourly_data.csv")
+            leaftemp = pd.read_csv("data/nrv_leaftemp.csv")
         case _:
             raise Exception("Incorrect POP_NUM!")
 
-    errors = calc_errors(Y, ground, problem)
+    errors = calc_errors(Y, ground, leaftemp, problem)
 
     # Save errors
     with open(os.path.join(RES_DIR, "errors.json"), "w") as f:
