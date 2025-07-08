@@ -1,11 +1,11 @@
 {
     "space": {
-        "i_kmaxTree": ["uniform", [14, 463]]
+        "i_kmaxTree": ["normal", [238.61, 103.67]]
     },
     "metric": {
-        "params": ["leaftemp-a", "leaftemp-b"],
-        "metrics": ["mape", "r2"],
-        "modes": ["min", "max"]
+        "params": ["leaftemp.a", "leaftemp.b", "P-PD"],
+        "metrics": ["mape", "r2", "mape"],
+        "modes": ["min", "max", "min"]
     },
     "num_worker": 4,
     "num_samples": 1,
