@@ -30,7 +30,8 @@ class Optimizer():
             metric=[metric.name for metric in self.config.metric.metrics],
             mode=self.config.metric.modes,
             sampler=TPESampler(
-                n_startup_trials=0
+                n_startup_trials=0  # Without this it uses randsampler for n trials,
+                                    # which doesn't sample from normal distribution properly
             )
         )
 
