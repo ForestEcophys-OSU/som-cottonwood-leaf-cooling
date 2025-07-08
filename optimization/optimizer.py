@@ -33,7 +33,7 @@ class Optimizer():
             model,
             tune_config=tune.TuneConfig(
                 search_alg=self.search,
-                num_samples=500
+                num_samples=self.config.num_samples
             ),
             run_config=tune.RunConfig(
                 name="garisom_hyperparam_search",
