@@ -1,0 +1,19 @@
+{
+    "space": {
+        "i_leafAreaIndex": ["uniform", [0.2192, 7.0008]],
+        "i_rootBeta": ["uniform", [0.9, 1]],
+        "i_fieldCapFrac": ["uniform", [0, 1]],
+        "i_fieldCapPercInit": ["uniform", [0, 100]],
+        "i_kmaxTree": ["uniform", [14, 463]]
+    },
+    "metric": {
+        "params": ["leaftemp"],
+        "metrics": ["r2"],
+        "modes": ["max"]
+    },
+    "num_worker": 4,
+    "num_samples": 100,
+    "population": 1,
+    "start_day": 201,
+    "end_day": 236
+}
