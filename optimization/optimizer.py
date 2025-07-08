@@ -7,6 +7,7 @@ from ray.tune.search.optuna import OptunaSearch
 import os
 from typing import Callable
 from collections import defaultdict
+from optuna.samplers import TPESampler
 
 
 class Optimizer():
@@ -25,8 +26,12 @@ class Optimizer():
 
     def _get_search_alg(self):
         return OptunaSearch(
+            space=self.space,
             metric=[metric.name for metric in self.config.metric.metrics],
             mode=self.config.metric.modes,
+            sampler=TPESampler(
+                n_startup_trials=0
+            )
         )
 
     def _get_tuner(self, model: Callable):
@@ -40,8 +45,7 @@ class Optimizer():
                 name="garisom_hyperparam_search",
                 storage_path=os.getcwd(),
                 verbose=1
-            ),
-            param_space=self.space
+            )
         )
 
     def run(self) -> ParamResults:
