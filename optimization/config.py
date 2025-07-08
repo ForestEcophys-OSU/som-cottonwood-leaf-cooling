@@ -1,8 +1,10 @@
+# Typing stuff
 from dataclasses import dataclass, asdict
 import json
 from typing import Callable, Any
 from enum import Enum
-from ray import tune
+
+# Metrics
 from sklearn.metrics import (
     mean_squared_error,
     r2_score,
@@ -12,6 +14,11 @@ from sklearn.metrics import (
 )
 import numpy as np
 
+# Sampling distributions
+from optuna.distributions import FloatDistribution
+from scipy.special import ndtri
+
+# TODO, refactor SpaceConfig and ParamResults into proper dataclasses
 SpaceConfig = dict[str, tuple[Callable, list[float]]]
 ParamResults = dict[str, tuple[dict[str, Any], dict[str, float]]]
 EvalResults = dict[np.ndarray]
@@ -41,9 +48,9 @@ class Metric:
         # Check if name is hyphenated, indicating name is different from output
         # Optuna doesn't allow for 'metric' names to be the same, so we need to
         # differentiate between duplicates of outputs when using different
-        # metrics. Ex: PD-A and PD-B must both be mapped to PD.
+        # metrics. Ex: P-PD.A and P-PD.B must both be mapped to P-PD.
         output_name = optim_name
-        if i := optim_name.rfind("-"):
+        if (i := optim_name.rfind(".")) != -1:
             output_name = optim_name[:i]
 
         return metric_cls(output_name, optim_name)
@@ -151,8 +158,8 @@ class OptimizationConfig:
     @staticmethod
     def parse_space(data: dict) -> SpaceConfig:
         mapping = {
-            "uniform": tune.uniform,
-            "normal": tune.randn,
+            "uniform": FloatDistribution,
+            "normal": NormalDistribution,
         }
         space_config = {}
         for k, v in data.items():
@@ -162,3 +169,34 @@ class OptimizationConfig:
                 raise ValueError(f"Unknown distribution type: {dist_type}")
             space_config[k] = (mapping[dist_type], params)
         return space_config
+
+
+class NormalDistribution(FloatDistribution):
+    def __init__(self, mu, sigma):
+        self.mu = mu
+        self.sigma = sigma
+        self.low = 1e-8
+        self.high = 1 - 1e-8
+        super().__init__(self.low, self.high)
+
+    def single(self) -> bool:
+        return False
+
+    def _contains(self, param):
+        return isinstance(param, float)
+
+    def _sample(self, rng):
+        # Sample p ~ Uniform(0,1)
+        p = rng.uniform(self.low, self.high)
+        # Transform to normal
+        return self.mu + self.sigma * ndtri(p)
+
+    def to_internal_repr(self, param):
+        # Transform normal value back to uniform p for internal sampler state
+        from scipy.stats import norm
+        p = norm.cdf(param, loc=self.mu, scale=self.sigma)
+        return p
+
+    def to_external_repr(self, internal_param):
+        # Transform uniform p to normal value
+        return self.mu + self.sigma * ndtri(internal_param)
