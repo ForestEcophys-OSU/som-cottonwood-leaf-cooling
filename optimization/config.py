@@ -12,9 +12,9 @@ from sklearn.metrics import (
 )
 import numpy as np
 
-type SpaceConfig = dict[str, tuple[Callable, list[float]]]
-type ParamResults = dict[str, tuple[dict[str, Any], dict[str, float]]]
-type EvalResults = dict[np.ndarray]
+SpaceConfig = dict[str, tuple[Callable, list[float]]]
+ParamResults = dict[str, tuple[dict[str, Any], dict[str, float]]]
+EvalResults = dict[np.ndarray]
 
 
 @dataclass
