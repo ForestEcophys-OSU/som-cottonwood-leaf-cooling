@@ -57,10 +57,10 @@ class Optimizer():
         # and parameters
         for metric, mode in metric_and_modes:
             best_res = self.results.get_best_result(metric.name, mode)
-            res[metric.name]['metrics'] = {
+            res['metrics'] = {
                 name: score for name, score in best_res.metrics.items()
                 if name in [m.name for m in self.config.metric.metrics]
             }
-            res[metric.name]['parameters'] = best_res.config
+            res['parameters'][metric.name] = best_res.config
 
         return res

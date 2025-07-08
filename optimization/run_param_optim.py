@@ -82,7 +82,8 @@ def evaluate_model(
     errors = {}
     for idx, (metric, mode) in enumerate(zip(metrics, modes)):
 
-        output_name = metric.name
+        output_name = metric.output_name
+        optim_name = metric.name
         eval_func = metric.func
 
         if pred is None:
@@ -102,7 +103,7 @@ def evaluate_model(
 
             err = eval_func(ground_values, pred_values)
 
-        errors[output_name] = err
+        errors[optim_name] = err
 
     return errors
 
@@ -115,7 +116,7 @@ def run_model_and_get_results(
     **kwargs
 ) -> EvalResults:
     in_names = config.space.keys()
-    out_names = [metric.name for metric in config.metric.metrics]
+    out_names = [metric.output_name for metric in config.metric.metrics]
     population_num = config.population
 
     with TemporaryDirectory() as tmp:

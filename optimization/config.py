@@ -20,10 +20,11 @@ type EvalResults = dict[np.ndarray]
 @dataclass
 class Metric:
     name: str
+    output_name: str
     func: Callable
 
     @staticmethod
-    def from_name(name: str, param_name: str) -> "Metric":
+    def from_name(metric_name: str, optim_name: str) -> "Metric":
         mapping = {
             "mse": MSE,
             "rmse": RMSE,
@@ -31,36 +32,47 @@ class Metric:
             "mape": MAPE,
             "made": MADE,
         }
-        metric_cls = mapping.get(name.lower())
+
+        # Get metric class
+        metric_cls = mapping.get(metric_name.lower())
         if metric_cls is None:
-            raise ValueError(f"Unknown metric name: {name}")
-        return metric_cls(param_name)
+            raise ValueError(f"Unknown metric name: {metric_name}")
+
+        # Check if name is hyphenated, indicating name is different from output
+        # Optuna doesn't allow for 'metric' names to be the same, so we need to
+        # differentiate between duplicates of outputs when using different
+        # metrics. Ex: PD-A and PD-B must both be mapped to PD.
+        output_name = optim_name
+        if i := optim_name.rfind("-"):
+            output_name = optim_name[:i]
+
+        return metric_cls(output_name, optim_name)
 
 
 # Evaluation Metrics
 class MSE(Metric):
-    def __init__(self, name: str = "mse"):
-        super().__init__(name=name, func=mean_squared_error)
+    def __init__(self, output_name: str, name: str = "mse"):
+        super().__init__(name=name, output_name=output_name, func=mean_squared_error)
 
 
 class RMSE(Metric):
-    def __init__(self, name: str = "rmse"):
-        super().__init__(name=name, func=root_mean_squared_error)
+    def __init__(self, output_name: str, name: str = "rmse"):
+        super().__init__(name=name, output_name=output_name, func=root_mean_squared_error)
 
 
 class R2(Metric):
-    def __init__(self, name: str = "r2"):
-        super().__init__(name=name, func=r2_score)
+    def __init__(self, output_name: str, name: str = "r2"):
+        super().__init__(name=name, output_name=output_name, func=r2_score)
 
 
 class MAPE(Metric):
-    def __init__(self, name: str = "mape"):
-        super().__init__(name=name, func=mean_absolute_percentage_error)
+    def __init__(self, output_name: str, name: str = "mape"):
+        super().__init__(name=name, output_name=output_name, func=mean_absolute_percentage_error)
 
 
 class MADE(Metric):
-    def __init__(self, name: str = "made"):
-        super().__init__(name=name, func=median_absolute_error)
+    def __init__(self, output_name: str, name: str = "made"):
+        super().__init__(name=name, output_name=output_name, func=median_absolute_error)
 
 
 # Evaluation Modes
