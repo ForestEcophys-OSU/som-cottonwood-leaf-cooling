@@ -247,6 +247,8 @@ def main():
 
     # Run model
     ray.init(num_cpus=config.num_worker)
+    ray.cluster_resources()  # show resources available
+
     model = setup_model_and_return_callable(
         config,
         **kwargs
