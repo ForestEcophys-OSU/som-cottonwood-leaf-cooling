@@ -3,9 +3,9 @@
         "i_kmaxTree": ["uniform", [14, 463]]
     },
     "metric": {
-        "params": ["leaftemp"],
-        "metrics": ["mape"],
-        "modes": ["min"]
+        "params": ["leaftemp-a", "leaftemp-b"],
+        "metrics": ["mape", "r2"],
+        "modes": ["min", "max"]
     },
     "num_worker": 4,
     "num_samples": 1,
