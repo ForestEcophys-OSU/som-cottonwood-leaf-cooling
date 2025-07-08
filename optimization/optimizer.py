@@ -6,6 +6,7 @@ from ray.tune.search.optuna import OptunaSearch
 
 import os
 from typing import Callable
+from collections import defaultdict
 
 
 class Optimizer():
@@ -50,10 +51,16 @@ class Optimizer():
             self.config.metric.modes
         )
 
-        res = {}
+        res = defaultdict(dict)
 
+        # Get best results for each metric and save the corresponding scores
+        # and parameters
         for metric, mode in metric_and_modes:
             best_res = self.results.get_best_result(metric.name, mode)
-            res[metric.name] = (best_res.metrics, best_res.config)
+            res[metric.name]['metrics'] = {
+                name: score for name, score in best_res.metrics.items()
+                if name in [m.name for m in self.config.metric.metrics]
+            }
+            res[metric.name]['parameters'] = best_res.config
 
         return res
