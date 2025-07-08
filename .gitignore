@@ -4,6 +4,7 @@ meeting_notes.md
 sa_test_plan.md
 env/
 experiments
+output
 
 __pycache__
 .vscode
