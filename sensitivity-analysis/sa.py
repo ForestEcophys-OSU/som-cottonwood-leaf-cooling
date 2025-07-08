@@ -158,7 +158,6 @@ def wrapped_garisom(
 def calc_errors(
     outputs,
     ground,
-    leaftemp,
     problem
 ):
     start_day = problem['plot_settings']['start_day']
@@ -188,14 +187,9 @@ def calc_errors(
     for idx, output_name in enumerate(problem['outputs']):
 
         # Filter ground data based on julian-day and drop NaN values
-        if output_name == "leaftemp":
-            col_ground = leaftemp[
-                ground['julian-day'].between(start_day, end_day)
-            ][output_name].dropna()
-        else:
-            col_ground = ground[
-                ground['julian-day'].between(start_day, end_day)
-            ][output_name].dropna()
+        col_ground = ground[
+            ground['julian-day'].between(start_day, end_day)
+        ][output_name].dropna()
 
         # Align predictions with the filtered ground data
         col_pred = outputs[:, :, idx]  # (N, T)
@@ -390,9 +384,9 @@ def main():
 
     args = parser.parse_args()
 
-    PARAM_FILE = "./DBG/parameters.csv"
-    CONFIG_FILE = "./DBG/configuration.csv"
-    DATA_FILE = "./DBG/dataset.csv"
+    PARAM_FILE = "../DBG/parameters.csv"
+    CONFIG_FILE = "../DBG/configuration.csv"
+    DATA_FILE = "../DBG/dataset.csv"
     POP_NUM = args.pop
     VERBOSE = args.verbose
     MAX_WORKERS = args.workers
@@ -487,21 +481,17 @@ def main():
     ground = None
     match POP_NUM:
         case 1:
-            ground = pd.read_csv("data/ccr_hourly_data.csv")
-            leaftemp = pd.read_csv("data/ccr_leaftemp.csv")
+            ground = pd.read_csv("../data/ccr_hourly_data.csv")
         case 2:
-            ground = pd.read_csv("data/jla_hourly_data.csv")
-            leaftemp = pd.read_csv("data/jla_leaftemp.csv")
+            ground = pd.read_csv("../data/jla_hourly_data.csv")
         case 3:
-            ground = pd.read_csv("data/tsz_hourly_data.csv")
-            leaftemp = pd.read_csv("data/tsz_leaftemp.csv")
+            ground = pd.read_csv("../data/tsz_hourly_data.csv")
         case 4:
-            ground = pd.read_csv("data/nrv_hourly_data.csv")
-            leaftemp = pd.read_csv("data/nrv_leaftemp.csv")
+            ground = pd.read_csv("../data/nrv_hourly_data.csv")
         case _:
             raise Exception("Incorrect POP_NUM!")
 
-    errors = calc_errors(Y, ground, leaftemp, problem)
+    errors = calc_errors(Y, ground, problem)
 
     # Save errors
     with open(os.path.join(RES_DIR, "errors.json"), "w") as f:
