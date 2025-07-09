@@ -7,7 +7,7 @@
         "i_kmaxTree": ["normal", [238.61, 103.67]]
     },
     "metric": {
-        "params": ["leaftemp", "leaftemp"],
+        "params": ["leaftemp.a", "leaftemp.b"],
         "metrics": ["r2", "mape"],
         "modes": ["max", "min"]
     },
