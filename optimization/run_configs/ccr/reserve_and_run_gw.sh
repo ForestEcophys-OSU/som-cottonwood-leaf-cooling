@@ -11,7 +11,7 @@ cd ~/hpc-share/fremont-cottonwood-dbg-garisom/
 source env/bin/activate
 cd ./optimization/
 
-EXP=$1
+EXP="GW"
 EXP_DIR="output/ccr/"
 EXP_OUT="$EXP_DIR/${EXP}/optim.out"
 
