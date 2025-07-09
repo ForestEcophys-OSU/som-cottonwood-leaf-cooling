@@ -7,9 +7,9 @@
         "i_kmaxTree": ["normal", [238.61, 103.67]]
     },
     "metric": {
-        "params": ["leaftemp.a", "leaftemp.b"],
-        "metrics": ["r2", "mape"],
-        "modes": ["max", "min"]
+        "params": ["GW.a", "GW.b", "GW.c"],
+        "metrics": ["mape", "r2", "mse"],
+        "modes": ["min", "max", "min"]
     },
     "num_worker": 32,
     "num_samples": 2000,
