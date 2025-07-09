@@ -246,8 +246,11 @@ def main():
     }
 
     # Run model
-    ray.init(num_cpus=config.num_worker)
-    ray.cluster_resources()  # show resources available
+    if config.num_worker == -1:
+        ray.init()
+    else:
+        ray.init(num_cpus=config.num_worker)
+    print(ray.cluster_resources())  # show resources available
 
     model = setup_model_and_return_callable(
         config,

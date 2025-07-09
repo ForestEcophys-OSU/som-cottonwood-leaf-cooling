@@ -11,7 +11,7 @@
         "metrics": ["mape", "r2", "mse"],
         "modes": ["min", "max", "min"]
     },
-    "num_worker": 32,
+    "num_worker": -1,
     "num_samples": 2000,
     "population": 1,
     "start_day": 201,

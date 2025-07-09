@@ -7,8 +7,8 @@
         "metrics": ["mape", "r2", "mape"],
         "modes": ["min", "max", "min"]
     },
-    "num_worker": 4,
-    "num_samples": 1,
+    "num_worker": -1,
+    "num_samples": 10,
     "population": 1,
     "start_day": 201,
     "end_day": 236
