@@ -8,10 +8,13 @@ import numpy as np
 
 # Sampling distributions
 from optuna.distributions import FloatDistribution
-from optimization.distributions import TruncatedNormalDistribution
+from .distributions import (
+    NormalDistribution,
+    TruncatedNormalDistribution
+)
 
 # Metrics
-from optimization.metric import Metric, Mode
+from .metric import Metric, Mode
 
 # TODO, refactor SpaceConfig and ParamResults into proper dataclasses
 SpaceConfig = dict[str, tuple[Callable, list[float]]]
@@ -39,9 +42,6 @@ class OptimizationConfig:
     metric: MetricConfig = None
     num_worker: int = 4
     num_samples: int = 100
-    population: int = 1
-    start_day: int = 201
-    end_day: int = 236
 
     @classmethod
     def from_json(cls, infile: str):
@@ -83,7 +83,8 @@ class OptimizationConfig:
     def parse_space(data: dict) -> SpaceConfig:
         mapping = {
             "uniform": FloatDistribution,
-            "normal": TruncatedNormalDistribution,
+            "norm": NormalDistribution,
+            "truncnorm": TruncatedNormalDistribution,
         }
         space_config = {}
         for k, v in data.items():
@@ -93,3 +94,10 @@ class OptimizationConfig:
                 raise ValueError(f"Unknown distribution type: {dist_type}")
             space_config[k] = (mapping[dist_type], params)
         return space_config
+
+
+@dataclass
+class GarisomOptimizationConfig(OptimizationConfig):
+    population: int = 1
+    start_day: int = 201
+    end_day: int = 236

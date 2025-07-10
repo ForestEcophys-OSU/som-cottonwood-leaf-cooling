@@ -1,6 +1,6 @@
 {
     "space": {
-        "i_kmaxTree": ["normal", [238.61, 103.67]]
+        "i_kmaxTree": ["truncnorm", [238.61, 103.67]]
     },
     "metric": {
         "params": ["leaftemp.a", "leaftemp.b", "P-PD"],

@@ -1,18 +1,19 @@
-from optimization.config import OptimizationConfig, ParamResults
-from ray import tune
+# Config and model class
+from .config import ParamResults
+from .model import Model
 
 # Using Optuna to allow for multiple objective optimization
+from ray import tune
 from ray.tune.search.optuna import OptunaSearch
 
 import os
-from typing import Callable
 from collections import defaultdict
 from optuna.samplers import TPESampler
 
 
 class Optimizer():
-    def __init__(self, config: OptimizationConfig, model: Callable):
-        self.config = config
+    def __init__(self, model: Model):
+        self.config = model.optim_config
         self.seed = 42
         self.space = self._get_search_space()
         self.search = self._get_search_alg()
@@ -37,9 +38,9 @@ class Optimizer():
             )
         )
 
-    def _get_tuner(self, model: Callable):
+    def _get_tuner(self, model: Model):
         return tune.Tuner(
-            model,
+            model.setup_model_and_return_callable(),
             tune_config=tune.TuneConfig(
                 search_alg=self.search,
                 num_samples=self.config.num_samples

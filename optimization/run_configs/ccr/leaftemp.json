@@ -1,15 +1,15 @@
 {
     "space": {
-        "i_leafAreaIndex": ["normal", [3.61, 1.73]],
+        "i_leafAreaIndex": ["truncnorm", [3.61, 1.73]],
         "i_rootBeta": ["uniform", [0.9, 1]],
         "i_fieldCapFrac": ["uniform", [0, 1]],
         "i_fieldCapPercInit": ["uniform", [0, 100]],
-        "i_kmaxTree": ["normal", [238.61, 103.67]]
+        "i_kmaxTree": ["truncnorm", [238.61, 103.67]]
     },
     "metric": {
-        "params": ["leaftemp.a", "leaftemp.b"],
-        "metrics": ["r2", "mape"],
-        "modes": ["max", "min"]
+        "params": ["leaftemp.a", "leaftemp.b", "leaftemp.c"],
+        "metrics": ["r2", "mape", "nnse"],
+        "modes": ["max", "min", "max"]
     },
     "num_worker": -1,
     "num_samples": 1000,

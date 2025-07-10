@@ -7,12 +7,12 @@
         "i_kmaxTree": ["truncnorm", [238.61, 103.67]]
     },
     "metric": {
-        "params": ["P-PD", "P-MD", "leaftemp", "GW", "E-MD"],
-        "metrics": ["mape", "mape", "mse", "mape", "mape"],
-        "modes": ["min", "min", "min", "min", "min"]
+        "params": ["GW"],
+        "metrics": ["nnse"],
+        "modes": ["max"]
     },
     "num_worker": -1,
-    "num_samples": 2000,
+    "num_samples": 1000,
     "population": 1,
     "start_day": 201,
     "end_day": 236
