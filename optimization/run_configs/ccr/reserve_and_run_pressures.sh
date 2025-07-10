@@ -1,6 +1,6 @@
 #!/bin/sh
 
-#SBATCH -J garisom_optim_ccr
+#SBATCH -J garisom_optim_ccr_pressures
 #SBATCH -c 32
 #SBATCH --mem=128G
 #SBATCH --time=2-00:00:00
