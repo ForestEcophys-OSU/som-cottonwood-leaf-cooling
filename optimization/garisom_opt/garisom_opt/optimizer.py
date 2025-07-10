@@ -15,10 +15,10 @@ class Optimizer():
     def __init__(self, model: Model, verbosity: int = 1):
         self.config = model.optim_config
         self.seed = 42
+        self.verbosity = verbosity
         self.space = self._get_search_space()
         self.search = self._get_search_alg()
         self.tuner = self._get_tuner(model)
-        self.verbosity = verbosity
 
     def _get_search_space(self):
         space = {
