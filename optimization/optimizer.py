@@ -13,6 +13,7 @@ from optuna.samplers import TPESampler
 class Optimizer():
     def __init__(self, config: OptimizationConfig, model: Callable):
         self.config = config
+        self.seed = 42
         self.space = self._get_search_space()
         self.search = self._get_search_alg()
         self.tuner = self._get_tuner(model)
@@ -30,8 +31,9 @@ class Optimizer():
             metric=[metric.name for metric in self.config.metric.metrics],
             mode=self.config.metric.modes,
             sampler=TPESampler(
-                n_startup_trials=0  # Without this it uses randsampler for n trials,
-                                    # which doesn't sample from normal distribution properly
+                n_startup_trials=0,  # Without this it uses randsampler for n trials,
+                                     # which doesn't sample from normal distribution properly
+                seed=self.seed
             )
         )
 
