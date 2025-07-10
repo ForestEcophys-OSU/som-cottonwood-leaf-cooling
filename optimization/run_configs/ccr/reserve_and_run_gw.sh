@@ -10,6 +10,7 @@
 cd ~/hpc-share/fremont-cottonwood-dbg-garisom/
 
 cd ./garisom/02_program_code
+make clean
 make
 
 cd ../..
