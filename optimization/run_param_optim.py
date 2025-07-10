@@ -57,6 +57,13 @@ def main():
         required=True,
         type=str
     )
+    parser.add_argument(
+        "--verbose", "-v",
+        help="Set Raytune verbosity level: 0 (silent), 1 (default), 2 (debug).",
+        choices=[0, 1, 2],
+        type=int,
+        default=1
+    )
     args = parser.parse_args()
 
     # Setup output directories and files
@@ -106,7 +113,7 @@ def main():
     print(ray.cluster_resources())  # show resources available
 
     model = GarisomModel(optim_config, run_kwargs, eval_kwargs)
-    optim = Optimizer(model)
+    optim = Optimizer(model, args.verbose)
     results = optim.run()
 
     # Save results

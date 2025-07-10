@@ -12,12 +12,13 @@ from optuna.samplers import TPESampler
 
 
 class Optimizer():
-    def __init__(self, model: Model):
+    def __init__(self, model: Model, verbosity: int = 1):
         self.config = model.optim_config
         self.seed = 42
         self.space = self._get_search_space()
         self.search = self._get_search_alg()
         self.tuner = self._get_tuner(model)
+        self.verbosity = verbosity
 
     def _get_search_space(self):
         space = {
@@ -48,7 +49,7 @@ class Optimizer():
             run_config=tune.RunConfig(
                 name="garisom_hyperparam_search",
                 storage_path=os.getcwd(),
-                verbose=1
+                verbose=self.verbosity
             )
         )
 
