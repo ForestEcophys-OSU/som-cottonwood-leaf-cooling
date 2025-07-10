@@ -8,6 +8,12 @@
 #SBATCH --mail-user=pannikkc@oregonstate.edu
 
 cd ~/hpc-share/fremont-cottonwood-dbg-garisom/
+
+cd ./garisom/02_program_code
+make
+
+cd ../..
+
 source env/bin/activate
 cd ./optimization/
 
@@ -19,3 +25,7 @@ mkdir -p "${EXP_DIR}/${EXP}/"
 
 echo "$(date '+%Y-%m-%d %H:%M:%S') - EXPERIMENT ${EXP} POPULATION CCR" >> $EXP_OUT
 python run_param_optim.py -i run_configs/ccr/${EXP}.json -o $EXP_DIR -m ../garisom/02_program_code 2>&1 >> $EXP_OUT
+
+ml rclone
+cd ..
+./bash/sync_to_box.sh
