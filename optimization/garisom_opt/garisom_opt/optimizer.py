@@ -47,7 +47,7 @@ class Optimizer():
                 num_samples=self.config.num_samples
             ),
             run_config=tune.RunConfig(
-                name="garisom_hyperparam_search",
+                name="raytune_hyperparam_search",
                 storage_path=os.getcwd(),
                 verbose=self.verbosity
             )
