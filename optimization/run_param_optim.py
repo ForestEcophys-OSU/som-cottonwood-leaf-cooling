@@ -87,7 +87,7 @@ def evaluate_model(
         eval_func = metric.func
 
         if pred is None:
-            err = float('inf') if mode == 'min' else -float('inf')
+            err = 1e20 if mode == 'min' else -1e20
         else:
             # Filter ground data based on julian-day and drop NaN values
             col_ground = ground[
