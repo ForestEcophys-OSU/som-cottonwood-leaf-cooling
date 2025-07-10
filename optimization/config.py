@@ -8,10 +8,10 @@ import numpy as np
 
 # Sampling distributions
 from optuna.distributions import FloatDistribution
-from distributions import TruncatedNormalDistribution
+from optimization.distributions import TruncatedNormalDistribution
 
 # Metrics
-from metric import Metric, Mode
+from optimization.metric import Metric, Mode
 
 # TODO, refactor SpaceConfig and ParamResults into proper dataclasses
 SpaceConfig = dict[str, tuple[Callable, list[float]]]

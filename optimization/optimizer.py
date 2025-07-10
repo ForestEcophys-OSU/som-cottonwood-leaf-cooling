@@ -1,4 +1,4 @@
-from config import OptimizationConfig, ParamResults
+from optimization.config import OptimizationConfig, ParamResults
 from ray import tune
 
 # Using Optuna to allow for multiple objective optimization

@@ -19,8 +19,8 @@ from argparse import ArgumentParser
 from datetime import datetime
 
 # Optimizer
-from optimizer import Optimizer
-from config import OptimizationConfig, EvalResults
+from optimization.optimizer import Optimizer
+from optimization.config import OptimizationConfig, EvalResults
 
 
 def launch_garisom(
@@ -114,7 +114,7 @@ def run_model_and_get_results(
     ground: pd.DataFrame,
     params: pd.DataFrame,
     **kwargs
-) -> EvalResults:
+) -> tuple[EvalResults, pd.DataFrame]:
     in_names = config.space.keys()
     out_names = [metric.output_name for metric in config.metric.metrics]
     population_num = config.population
@@ -141,7 +141,7 @@ def run_model_and_get_results(
 
         eval_res = evaluate_model(ground, pred, config)
 
-    return eval_res
+    return eval_res, output
 
 
 def get_ground_truth(config: OptimizationConfig):
@@ -184,7 +184,7 @@ def setup_model_and_return_callable(
     objective = get_objective(config, **kwargs)
 
     def wrapped_model(config: dict) -> None:
-        res = objective(config)
+        res, _ = objective(config)
         tune.report(res)
 
     return wrapped_model
