@@ -4,7 +4,6 @@ import ray
 # Arguments and output
 from argparse import ArgumentParser
 from datetime import datetime
-import json
 import pandas as pd
 
 # Optimization stuff
@@ -117,8 +116,7 @@ def main():
     results = optim.run()
 
     # Save results
-    with open(results_file, "+x") as f:
-        json.dump(results, f)
+    results.to_json(results_file)
 
 
 if __name__ == "__main__":

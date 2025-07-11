@@ -36,7 +36,7 @@ class Model(ABC):
 
     @staticmethod
     @abstractmethod
-    def run(X, optim_config, *args, **kwargs):
+    def run(X, *args, **kwargs):
         pass
 
     @staticmethod

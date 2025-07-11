@@ -1,5 +1,5 @@
 # Config and model class
-from .config import ParamResults
+from .config import ParamResults, MetricResult
 from .model import Model
 
 # Using Optuna to allow for multiple objective optimization
@@ -7,7 +7,6 @@ from ray import tune
 from ray.tune.search.optuna import OptunaSearch
 
 import os
-from collections import defaultdict
 from optuna.samplers import TPESampler
 
 
@@ -21,10 +20,11 @@ class Optimizer():
         self.tuner = self._get_tuner(model)
 
     def _get_search_space(self):
-        space = {
-            param_name: sampler(*param_vals) for
-            param_name, (sampler, param_vals) in self.config.space.items()
-        }
+        space = {}
+        for param_name, samplespace in self.config.space.items():
+            sampler, parameters = samplespace.unpack()
+            space[param_name] = sampler(*parameters)
+
         return space
 
     def _get_search_alg(self):
@@ -60,16 +60,17 @@ class Optimizer():
             self.config.metric.modes
         )
 
-        res = defaultdict(dict)
+        res = {}
 
         # Get best results for each metric and save the corresponding scores
         # and parameters
         for metric, mode in metric_and_modes:
             best_res = self.results.get_best_result(metric.name, mode)
-            res['metrics'][metric.name] = {
+            scores = {
                 name: score for name, score in best_res.metrics.items()
                 if name in [m.name for m in self.config.metric.metrics]
             }
-            res['parameters'][metric.name] = best_res.config
+            parameters = best_res.config
+            res[metric.name] = MetricResult(scores=scores, parameters=parameters)
 
-        return res
+        return ParamResults(res)

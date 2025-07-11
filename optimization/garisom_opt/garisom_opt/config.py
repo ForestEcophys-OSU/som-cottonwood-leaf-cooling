@@ -1,13 +1,12 @@
 # Typing stuff
 from dataclasses import dataclass, asdict
 import json
-from typing import Callable, Any
 
 # Calculations
 import numpy as np
 
 # Sampling distributions
-from optuna.distributions import FloatDistribution
+from optuna.distributions import FloatDistribution, BaseDistribution
 from .distributions import (
     NormalDistribution,
     TruncatedNormalDistribution
@@ -16,10 +15,37 @@ from .distributions import (
 # Metrics
 from .metric import Metric, Mode
 
-# TODO, refactor SpaceConfig and ParamResults into proper dataclasses
-SpaceConfig = dict[str, tuple[Callable, list[float]]]
-ParamResults = dict[str, tuple[dict[str, Any], dict[str, float]]]
+
 EvalResults = dict[np.ndarray]
+
+
+@dataclass
+class MetricResult:
+    scores: dict[str, float]
+    parameters: dict[str, float]
+
+    def to_dict(self): return asdict(self)
+
+
+class ParamResults(dict[str, MetricResult]):
+    def to_dict(self):
+        return {k: v.to_dict() for k, v in self.items()}
+
+    def to_json(self, outfile: str):
+        with open(outfile, "+x") as f:
+            json.dump(self.to_dict(), f)
+
+
+@dataclass
+class SampleSpace:
+    distribution: BaseDistribution
+    parameters: tuple[float]
+
+    def unpack(self):
+        return (self.distribution, self.parameters)
+
+
+SpaceConfig = dict[str, SampleSpace]
 
 
 @dataclass
@@ -65,7 +91,7 @@ class OptimizationConfig:
         data['space'] = cls.parse_space(data['space']) if 'space' in data else None
         return cls(**data)
 
-    def to_json(self, outfile):
+    def to_json(self, outfile: str):
         """
         Serializes the object to a JSON file.
 
@@ -77,7 +103,7 @@ class OptimizationConfig:
             which means all instance attributes will be included in the JSON output.
         """
         with open(outfile, "+x") as f:
-            json.dump(asdict(self), f, indent=2)
+            json.dump(asdict(self), f)
 
     @staticmethod
     def parse_space(data: dict) -> SpaceConfig:
@@ -92,8 +118,11 @@ class OptimizationConfig:
             params = v[1]
             if dist_type not in mapping:
                 raise ValueError(f"Unknown distribution type: {dist_type}")
-            space_config[k] = (mapping[dist_type], params)
-        return space_config
+            space_config[k] = SampleSpace(
+                distribution=mapping[dist_type],
+                parameters=tuple(params)
+            )
+        return SpaceConfig(space_config)
 
 
 @dataclass
