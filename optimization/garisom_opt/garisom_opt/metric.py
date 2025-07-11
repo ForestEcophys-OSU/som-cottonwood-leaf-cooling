@@ -13,9 +13,14 @@ from sklearn.metrics import (
 )
 
 
-def nnse(predictions, targets):
+def nash_sutcliffe_efficiency(predictions, targets):
+    """Nash-Sutcliffe model efficiency coefficient"""
+    return 1 - (np.sum((targets - predictions) ** 2) / np.sum((targets - np.mean(targets)) ** 2))
+
+
+def normalized_nash_sutcliffe_efficiency(predictions, targets):
     """Normalized Nash-Sutcliffe model efficiency coefficient"""
-    return 1 / (2 - (1 - (np.sum((targets - predictions) ** 2) / np.sum((targets - np.mean(targets)) ** 2))))
+    return 1 / (2 - nash_sutcliffe_efficiency(predictions, targets))
 
 
 @dataclass
@@ -79,7 +84,7 @@ class MADE(Metric):
 
 class NNSE(Metric):
     def __init__(self, output_name: str, name: str = "nnse"):
-        super().__init__(name=name, output_name=output_name, func=nnse)
+        super().__init__(name=name, output_name=output_name, func=normalized_nash_sutcliffe_efficiency)
 
 
 # Evaluation Modes
