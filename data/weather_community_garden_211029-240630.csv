@@ -1,5 +1,5 @@
-﻿No.,Date.Time,Rain.mm,Wind.Direction,Temp.C,RH.percent,Wind.Speed.m.s,Gust.Speed.m.s,PAR.µmol.m2.s,Notes
-1,10/29/2021 10:28,,70.2,28.221,19.2,2.52,6.04,1973.7,Plot Title: Community garden
+﻿No.,Date.Time,Rain.mm,Wind.Direction,Temp.C,RH.percent,Wind.Speed.m.s,Gust.Speed.m.s,PAR.mumol.m2.s,Notes
+1,10/29/2021 10:28,0,70.2,28.221,19.2,2.52,6.04,1973.7,Plot Title: Community garden
 2,10/29/2021 10:58,0,71.6,29.09,18.6,2.52,5.03,1406.2,"Date Time, GMT-07:00"
 3,10/29/2021 11:28,0,68.8,30.318,17.3,2.01,4.53,1466.2,"Rain, mm (LGR S/N: 10844781, SEN S/N: 10817995)"
 4,10/29/2021 11:58,0,71.6,31.001,16.2,2.01,5.03,1496.2,"Wind Direction, ø (LGR S/N: 10844781, SEN S/N: 10829144)"
