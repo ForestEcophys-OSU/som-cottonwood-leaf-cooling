@@ -48,6 +48,25 @@ class SampleSpace:
 SpaceConfig = dict[str, SampleSpace]
 
 
+def parse_space(data: dict) -> SpaceConfig:
+    mapping = {
+        "uniform": FloatDistribution,
+        "norm": NormalDistribution,
+        "truncnorm": TruncatedNormalDistribution,
+    }
+    space_config = {}
+    for k, v in data.items():
+        dist_type = v[0].lower()
+        params = v[1]
+        if dist_type not in mapping:
+            raise ValueError(f"Unknown distribution type: {dist_type}")
+        space_config[k] = SampleSpace(
+            distribution=mapping[dist_type],
+            parameters=tuple(params)
+        )
+    return SpaceConfig(space_config)
+
+
 @dataclass
 class MetricConfig:
     metrics: list[Metric]
@@ -88,7 +107,7 @@ class OptimizationConfig:
         with open(infile, "r") as f:
             data = json.load(f)
         data['metric'] = MetricConfig.from_dict(data["metric"]) if "metric" in data else None
-        data['space'] = cls.parse_space(data['space']) if 'space' in data else None
+        data['space'] = parse_space(data['space']) if 'space' in data else None
         return cls(**data)
 
     def to_json(self, outfile: str):
@@ -104,25 +123,6 @@ class OptimizationConfig:
         """
         with open(outfile, "+x") as f:
             json.dump(asdict(self), f)
-
-    @staticmethod
-    def parse_space(data: dict) -> SpaceConfig:
-        mapping = {
-            "uniform": FloatDistribution,
-            "norm": NormalDistribution,
-            "truncnorm": TruncatedNormalDistribution,
-        }
-        space_config = {}
-        for k, v in data.items():
-            dist_type = v[0].lower()
-            params = v[1]
-            if dist_type not in mapping:
-                raise ValueError(f"Unknown distribution type: {dist_type}")
-            space_config[k] = SampleSpace(
-                distribution=mapping[dist_type],
-                parameters=tuple(params)
-            )
-        return SpaceConfig(space_config)
 
 
 @dataclass
