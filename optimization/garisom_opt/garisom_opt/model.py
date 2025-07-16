@@ -23,8 +23,8 @@ from .config import (
 class Model(ABC):
     def __init__(
             self,
-            run_kwargs: dict,
-            eval_kwargs: dict,
+            run_kwargs: dict = None,
+            eval_kwargs: dict = None,
     ):
         self.run_kwargs = run_kwargs
         self.eval_kwargs = eval_kwargs
@@ -82,8 +82,8 @@ class Model(ABC):
 class GarisomModel(Model):
     def __init__(
             self,
-            run_kwargs: dict,
-            eval_kwargs: dict
+            run_kwargs: dict = None,
+            eval_kwargs: dict = None
     ):
         super().__init__(run_kwargs=run_kwargs, eval_kwargs=eval_kwargs)
 
