@@ -1,5 +1,5 @@
 # Config and model class
-from .config import ParamResults, MetricResult
+from .config import ParamResults, MetricResult, OptimizationConfig
 from .model import Model
 
 # Using Optuna to allow for multiple objective optimization
@@ -11,8 +11,8 @@ from optuna.samplers import TPESampler
 
 
 class Optimizer():
-    def __init__(self, model: Model, verbosity: int = 1):
-        self.config = model.optim_config
+    def __init__(self, model: Model, config: OptimizationConfig, verbosity: int = 1):
+        self.config = config
         self.seed = 42
         self.verbosity = verbosity
         self.space = self._get_search_space()
@@ -41,7 +41,7 @@ class Optimizer():
 
     def _get_tuner(self, model: Model):
         return tune.Tuner(
-            model.setup_model_and_return_callable(),
+            model.setup_model_and_return_callable(self.config.metric),
             tune_config=tune.TuneConfig(
                 search_alg=self.search,
                 num_samples=self.config.num_samples

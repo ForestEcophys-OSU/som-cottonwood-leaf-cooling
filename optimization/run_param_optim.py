@@ -111,8 +111,8 @@ def main():
         ray.init(num_cpus=optim_config.num_worker)
     print(ray.cluster_resources())  # show resources available
 
-    model = GarisomModel(optim_config, run_kwargs, eval_kwargs)
-    optim = Optimizer(model, args.verbose)
+    model = GarisomModel(run_kwargs, eval_kwargs)
+    optim = Optimizer(model, optim_config, args.verbose)
     results = optim.run()
 
     # Save results

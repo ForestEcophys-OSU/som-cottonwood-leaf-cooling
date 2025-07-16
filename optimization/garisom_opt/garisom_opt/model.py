@@ -15,8 +15,6 @@ from functools import partial
 
 # Optimizer stuff
 from .config import (
-    OptimizationConfig,
-    GarisomOptimizationConfig,
     MetricConfig,
     EvalResults
 )
@@ -25,12 +23,9 @@ from .config import (
 class Model(ABC):
     def __init__(
             self,
-            optim_config: OptimizationConfig,
             run_kwargs: dict,
-            eval_kwargs: dict
+            eval_kwargs: dict,
     ):
-        self.optim_config = optim_config
-        self.metric = optim_config.metric
         self.run_kwargs = run_kwargs
         self.eval_kwargs = eval_kwargs
 
@@ -57,7 +52,18 @@ class Model(ABC):
             **self.run_kwargs
         )
 
-    def setup_model_and_return_callable(self) -> Callable:
+    def setup_model_and_return_callable(self, metric: MetricConfig) -> Callable:
+        """
+        This function is used to supply RayTune with a callable that it can
+        use to run the model, passing in the config with parameters.
+
+        Inputs:
+            - metric (MetricConfig): Metric config which is passed into
+            evaluate_model, which is overidden in any child classes.
+
+        Returns:
+            Callable
+        """
 
         objective = self.get_objective()
 
@@ -65,7 +71,7 @@ class Model(ABC):
             out = objective(config)
             errs = self.evaluate_model(
                 out,
-                metric_config=self.metric,
+                metric_config=metric,
                 **self.eval_kwargs,
             )
             tune.report(errs)
@@ -76,11 +82,10 @@ class Model(ABC):
 class GarisomModel(Model):
     def __init__(
             self,
-            optim_config: GarisomOptimizationConfig,
             run_kwargs: dict,
             eval_kwargs: dict
     ):
-        super().__init__(optim_config, run_kwargs=run_kwargs, eval_kwargs=eval_kwargs)
+        super().__init__(run_kwargs=run_kwargs, eval_kwargs=eval_kwargs)
 
     @staticmethod
     def run(
