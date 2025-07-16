@@ -1,3 +1,6 @@
 [submodule "garisom"]
 	path = garisom
 	url = https://github.com/colinpannikkat/garisom.git
+[submodule "garisom-tools"]
+	path = garisom-tools
+	url = https://github.com/colinpannikkat/garisom-tools.git
