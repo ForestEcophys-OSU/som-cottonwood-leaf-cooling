@@ -7,11 +7,8 @@ from datetime import datetime
 import pandas as pd
 
 # Optimization stuff
-from garisom_opt import (
-    Optimizer,
-    GarisomOptimizationConfig,
-    GarisomModel
-)
+from garisom_tools import GarisomModel
+from garisom_tools.optimization import Optimizer, GarisomOptimizationConfig
 import os
 
 
