@@ -7,9 +7,9 @@
         "i_kmaxTree": ["truncnorm", [275.18, 119.07]]
     },
     "metric": {
-        "params": ["P-PD", "P-MD"],
-        "metrics": ["mape", "mape"],
-        "modes": ["min", "min"]
+        "params": ["P-PD.a", "P-PD.b", "P-MD.a", "P-MD.b"],
+        "metrics": ["mape", "mse", "mape", "mse"],
+        "modes": ["min", "min", "min", "min"]
     },
     "num_worker": -1,
     "num_samples": 2000,
