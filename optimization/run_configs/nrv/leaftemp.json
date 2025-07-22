@@ -4,7 +4,7 @@
         "i_rootBeta": ["uniform", [0.9, 1]],
         "i_fieldCapFrac": ["uniform", [0, 1]],
         "i_fieldCapPercInit": ["uniform", [0, 100]],
-        "i_kmaxTree": ["truncnorm", [238.61, 103.67]]
+        "i_kmaxTree": ["truncnorm", [304.55, 127.87]]
     },
     "metric": {
         "params": ["leaftemp.a", "leaftemp.b", "leaftemp.c", "leaftemp.d"],
@@ -13,7 +13,7 @@
     },
     "num_worker": -1,
     "num_samples": 2000,
-    "population": 1,
+    "population": 3,
     "start_day": 201,
     "end_day": 237
 }

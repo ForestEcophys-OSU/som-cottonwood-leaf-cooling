@@ -1,10 +1,10 @@
 {
     "space": {
-        "i_leafAreaIndex": ["truncnorm", [3.61, 1.73]],
+        "i_leafAreaIndex": ["truncnorm", [3.36, 1.27]],
         "i_rootBeta": ["uniform", [0.9, 1]],
         "i_fieldCapFrac": ["uniform", [0, 1]],
         "i_fieldCapPercInit": ["uniform", [0, 100]],
-        "i_kmaxTree": ["truncnorm", [238.61, 103.67]]
+        "i_kmaxTree": ["truncnorm", [203.48, 70.25]]
     },
     "metric": {
         "params": ["P-PD", "P-MD"],
@@ -13,7 +13,7 @@
     },
     "num_worker": -1,
     "num_samples": 2000,
-    "population": 1,
+    "population": 2,
     "start_day": 201,
     "end_day": 237
 }

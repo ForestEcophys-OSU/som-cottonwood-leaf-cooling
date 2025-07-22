@@ -13,15 +13,16 @@ import os
 
 
 def get_ground_truth(population: int):
+    ground_dir = "../data/ground"
     match population:
         case 1:
-            ground = pd.read_csv(os.path.abspath("../data/ccr_hourly_data.csv"))
+            ground = pd.read_csv(os.path.abspath(f"{ground_dir}/ccr_hourly_data.csv"))
         case 2:
-            ground = pd.read_csv(os.path.abspath("../data/jla_hourly_data.csv"))
+            ground = pd.read_csv(os.path.abspath(f"{ground_dir}/jla_hourly_data.csv"))
         case 3:
-            ground = pd.read_csv(os.path.abspath("../data/tsz_hourly_data.csv"))
+            ground = pd.read_csv(os.path.abspath(f"{ground_dir}/tsz_hourly_data.csv"))
         case 4:
-            ground = pd.read_csv(os.path.abspath("../data/nrv_hourly_data.csv"))
+            ground = pd.read_csv(os.path.abspath(f"{ground_dir}/nrv_hourly_data.csv"))
         case _:
             raise Exception("Incorrect POP_NUM!")
 
