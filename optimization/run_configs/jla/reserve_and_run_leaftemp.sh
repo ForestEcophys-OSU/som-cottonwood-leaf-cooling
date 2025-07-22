@@ -1,6 +1,6 @@
 #!/bin/sh
 
-#SBATCH -J garisom_optim_jLA_leaftemp
+#SBATCH -J garisom_optim_jla_leaftemp
 #SBATCH -c 32
 #SBATCH --mem=128G
 #SBATCH --time=2-00:00:00
@@ -21,13 +21,13 @@ source env/bin/activate
 cd ./optimization/
 
 EXP="leaftemp"
-EXP_DIR="output/jLA"
+EXP_DIR="output/jla"
 EXP_OUT="$EXP_DIR/${EXP}/optim.out"
 
 mkdir -p "${EXP_DIR}/${EXP}/"
 
 echo "$(date '+%Y-%m-%d %H:%M:%S') - EXPERIMENT ${EXP} POPULATION JLA" >> $EXP_OUT
-python run_param_optim.py -i run_configs/jLA/${EXP}.json -o $EXP_DIR -m ../garisom/02_program_code 2>&1 >> $EXP_OUT
+python run_param_optim.py -i run_configs/jla/${EXP}.json -o $EXP_DIR -m ../garisom/02_program_code 2>&1 >> $EXP_OUT
 
 cd ..
 ./bash/sync_to_box.sh
