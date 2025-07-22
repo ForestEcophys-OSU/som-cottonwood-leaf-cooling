@@ -8,8 +8,8 @@
         "modes": ["min", "max", "min"]
     },
     "num_worker": -1,
-    "num_samples": 1,
+    "num_samples": 100,
     "population": 1,
     "start_day": 201,
-    "end_day": 236
+    "end_day": 237
 }
