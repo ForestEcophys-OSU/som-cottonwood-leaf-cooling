@@ -15,6 +15,10 @@ for pop in ${populations[@]}; do
 #SBATCH --time=2-00:00:00
 #SBATCH --mail-type=ALL,TIMELIMIT_90
 #SBATCH --mail-user=pannikkc@oregonstate.edu
+#SBATCH --o out/R-%x.%j.out
+#SBATCH --e out/R-%x.%j.err
+
+mkdir -p out
 
 ml rclone gcc/14.2
 
