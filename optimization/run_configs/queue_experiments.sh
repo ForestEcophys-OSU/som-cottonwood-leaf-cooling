@@ -6,7 +6,7 @@ runs=("gw" "leaftemp" "pressures")
 for pop in ${populations[@]}; do
     for run in ${runs[@]}; do
         export pop run
-        envsubst '${pop} ${run}' <<'EOF' | cat
+        envsubst '${pop} ${run}' <<'EOF' | sbatch
 #!/bin/bash
 
 #SBATCH -J garisom_optim_${pop}_${run}
