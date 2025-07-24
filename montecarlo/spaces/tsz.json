@@ -1,0 +1,23 @@
+{
+    "space": {
+        "i_baperga": ["truncnorm", [33.93854, 2.11462]],
+        "i_height": ["truncnorm", [1.701333, 0.05]],
+        "i_leafPerBasal": ["truncnorm", [1063.69, 421.45]],
+        "i_leafWidth": ["truncnorm", [0.03203, 0.00097]],
+        "i_cr": ["uniform", [11.3734357, 12.9745481]],
+        "i_br": ["uniform", [2.63764525, 2.97832435]],
+        "i_cs": ["uniform", [11.3734357, 12.9745481]],
+        "i_bs": ["uniform", [2.63764525, 2.97832435]],
+        "i_cl": ["uniform", [11.3734357, 12.9745481]],
+        "i_bl": ["uniform", [2.63764525, 2.97832435]],
+        "i_vmax25": ["truncnorm", [59.280041, 5.81]],
+        "i_jmax25": ["truncnorm", [99.00, 9.70]]
+    },
+    "parameters" : {
+        
+    },
+    "outputs": ["P-PD", "P-MD", "GW", "E-MD", "leaftemp"],
+    "num_worker": 32,
+    "num_samples": 4096,
+    "population": 4
+}
