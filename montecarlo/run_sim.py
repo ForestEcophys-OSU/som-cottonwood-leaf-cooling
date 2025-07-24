@@ -49,6 +49,8 @@ def main():
 
     # Get optimization config and save in output directory
     mc_config = GarisomMonteCarloConfig.from_json(args.input)
+    X = mc_config.parameters  # Get passed in default param replacements
+
     # Copy the input config file to the output config_file path
     with open(args.input, "r") as src, open(config_file, "+x") as dst:
         dst.write(src.read())
@@ -77,7 +79,7 @@ def main():
 
     # Instantiate Sim class, run, and analyze results
     sim = Sim(model, mc_config, run_kwargs=run_kwargs)
-    outputs = sim.run(num_samples, workers=workers)
+    outputs = sim.run(num_samples, workers=workers, X=X)
     stats = sim.analyze(outputs, index_columns=index_columns)
 
     stats.save(res_dir)
