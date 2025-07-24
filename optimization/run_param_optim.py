@@ -20,9 +20,9 @@ def get_ground_truth(population: int):
         case 2:
             ground = pd.read_csv(os.path.abspath(f"{ground_dir}/jla_hourly_data.csv"))
         case 3:
-            ground = pd.read_csv(os.path.abspath(f"{ground_dir}/tsz_hourly_data.csv"))
-        case 4:
             ground = pd.read_csv(os.path.abspath(f"{ground_dir}/nrv_hourly_data.csv"))
+        case 4:
+            ground = pd.read_csv(os.path.abspath(f"{ground_dir}/tsz_hourly_data.csv"))
         case _:
             raise Exception("Incorrect POP_NUM!")
 
