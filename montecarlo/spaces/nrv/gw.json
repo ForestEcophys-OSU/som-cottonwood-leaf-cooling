@@ -100,6 +100,6 @@
         "leaftemp"
     ],
     "num_worker": 32,
-    "num_samples": 2048,
+    "num_samples": 4096,
     "population": 3
 }
