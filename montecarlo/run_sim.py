@@ -75,7 +75,7 @@ def main():
 
     # These are index columns that will not change between samples and therefore
     # need to be excluded from any statistic calculations
-    index_columns = ['year', 'julian_day', 'standard_time', 'solar', 'rain', 'wind', 'T-air', 'T-soil', 'D-MD']
+    index_columns = ['year', 'julian-day', 'standard-time', 'solar', 'rain', 'wind', 'T-air', 'T-soil', 'D-MD']
 
     # Instantiate Sim class, run, and analyze results
     sim = Sim(model, mc_config, run_kwargs=run_kwargs)
