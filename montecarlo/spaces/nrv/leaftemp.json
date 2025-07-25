@@ -1,0 +1,105 @@
+{
+    "space": {
+        "i_baperga": [
+            "truncnorm",
+            [
+                33.48829,
+                1.42031
+            ]
+        ],
+        "i_height": [
+            "truncnorm",
+            [
+                1.618667,
+                0.06
+            ]
+        ],
+        "i_leafPerBasal": [
+            "truncnorm",
+            [
+                1077.99,
+                424.27
+            ]
+        ],
+        "i_leafWidth": [
+            "truncnorm",
+            [
+                0.03439,
+                0.03354
+            ]
+        ],
+        "i_cr": [
+            "uniform",
+            [
+                11.1664625,
+                12.4882756
+            ]
+        ],
+        "i_br": [
+            "uniform",
+            [
+                2.60018616,
+                2.89316584
+            ]
+        ],
+        "i_cs": [
+            "uniform",
+            [
+                11.1664625,
+                12.4882756
+            ]
+        ],
+        "i_bs": [
+            "uniform",
+            [
+                2.60018616,
+                2.89316584
+            ]
+        ],
+        "i_cl": [
+            "uniform",
+            [
+                11.1664625,
+                12.4882756
+            ]
+        ],
+        "i_bl": [
+            "uniform",
+            [
+                2.60018616,
+                2.89316584
+            ]
+        ],
+        "i_vmax25": [
+            "truncnorm",
+            [
+                80.926844,
+                3.82
+            ]
+        ],
+        "i_jmax25": [
+            "truncnorm",
+            [
+                135.15,
+                6.37
+            ]
+        ]
+    },
+    "parameters": {
+        "i_leafAreaIndex": 1.6256573673434829,
+        "i_rootBeta": 0.9854092572158294,
+        "i_fieldCapFrac": 0.29529300377602125,
+        "i_fieldCapPercInit": 34.48777552196337,
+        "i_kmaxTree": 301.59008069407474
+    },
+    "outputs": [
+        "P-PD",
+        "P-MD",
+        "GW",
+        "E-MD",
+        "leaftemp"
+    ],
+    "num_worker": 32,
+    "num_samples": 2048,
+    "population": 3
+}

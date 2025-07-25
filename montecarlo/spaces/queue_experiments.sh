@@ -1,7 +1,7 @@
 #!/bin/bash
 
 populations=("ccr" "jla" "nrv" "tsz")
-runs=("gw" "leaftemp" "pressures")
+runs=("gw" "leaftemp" "pd" "md")
 
 for pop in ${populations[@]}; do
     for run in ${runs[@]}; do
