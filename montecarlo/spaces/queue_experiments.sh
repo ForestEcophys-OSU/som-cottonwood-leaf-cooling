@@ -43,7 +43,7 @@ EXP_OUT="${EXP_DIR}/${EXP}/sim.out"
 mkdir -p "${EXP_DIR}/${EXP}/"
 
 echo "$(date '+%Y-%m-%d %H:%M:%S') - MONTECARLO ${EXP} POPULATION ${pop}" >> $EXP_OUT
-python run_sim.py -i run_configs/${pop}/${EXP}.json -o $EXP_DIR -m $WORKDIR 2>&1 >> $EXP_OUT
+python run_sim.py -i spaces/${pop}/${EXP}.json -o $EXP_DIR -m $WORKDIR 2>&1 >> $EXP_OUT
 
 rm -rf $WORKDIR
 
