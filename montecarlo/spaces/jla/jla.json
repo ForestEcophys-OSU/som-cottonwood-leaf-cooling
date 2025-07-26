@@ -2,7 +2,6 @@
     "space": {
         "i_baperga": ["truncnorm", [37.21896, 2.64021]],
         "i_height": ["truncnorm", [1.878667, 0.10]],
-        "i_leafPerBasal": ["truncnorm", [902.77, 285.87]],
         "i_leafWidth": ["truncnorm", [0.04345, 0.00169]],
         "i_cr": ["uniform", [10.9778477, 12.411847]],
         "i_br": ["uniform", [2.56606774, 2.87549291]],

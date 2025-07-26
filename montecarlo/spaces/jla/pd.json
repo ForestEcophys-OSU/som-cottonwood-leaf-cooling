@@ -14,13 +14,6 @@
                 0.1
             ]
         ],
-        "i_leafPerBasal": [
-            "truncnorm",
-            [
-                902.77,
-                285.87
-            ]
-        ],
         "i_leafWidth": [
             "truncnorm",
             [
