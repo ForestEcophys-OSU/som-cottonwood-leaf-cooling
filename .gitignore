@@ -6,6 +6,7 @@ sa_test_plan.md
 env/
 experiments
 output
+test/
 
 __pycache__
 .vscode

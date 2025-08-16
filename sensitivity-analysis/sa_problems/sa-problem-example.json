@@ -1,22 +1,23 @@
 {
-    "num_vars": 2,
-    "names": [
-        "i_leafAreaIndex", 
-        "i_rootBeta"
-    ],
-    "bounds": [
-        [1.88, 5.34],
-        [0.5, 1]
-    ],
-    "outputs": [
-        "P-PD", 
-        "P-MD",
-        "GW"
-    ],
-    "plot_settings": {
-        "start_day": 201,
-        "end_day": 236,
-        "average": false,
-        "metric": "mape"
-    }
+    "problem": {
+        "num_vars": 2,
+        "names": [
+            "i_leafAreaIndex", 
+            "i_rootBeta"
+        ],
+        "bounds": [
+            [1.88, 5.34],
+            [0.5, 1]
+        ]
+    },
+    "metric": {
+        "params": ["P-PD", "P-MD", "GW.a", "GW.b"],
+        "metrics": ["mape", "r2", "mape", "r2"],
+        "modes": ["min", "max", "min", "max"]
+    },
+    "workers": 12,
+    "samples": 2,
+    "start_day": 201,
+    "end_day": 237,
+    "pop": 1
 }
