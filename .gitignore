@@ -1,6 +1,7 @@
 .DS_Store
 DBG/*
 DBG-*/*
+!DBG-leaf/*
 meeting_notes.md
 sa_test_plan.md
 env/
