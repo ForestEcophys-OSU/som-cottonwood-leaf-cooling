@@ -1,0 +1,35 @@
+{
+    "problem": {
+        "num_vars": 8,
+        "names": [
+            "i_emiss", 
+            "i_leafWidth",
+            "i_leafAreaIndex",
+            "i_atmTrans",
+            "i_leafAngleParam",
+            "abs_nir",
+            "abs_par",
+            "abs_solar"
+        ],
+        "bounds": [
+            [0, 1],
+            [0.001, 0.1],
+            [1.88, 5.34],
+            [0, 1],
+            [0, 2],
+            [0, 1],
+            [0, 1],
+            [0, 1]
+        ]
+    },
+    "metric": {
+        "params": ["leaftemp", "leaf-air-temp-diff"],
+        "metrics": ["nnse", "nnse"],
+        "modes": ["max", "max"]
+    },
+    "workers": 12,
+    "samples": 2,
+    "start_day": 201,
+    "end_day": 237,
+    "pop": 1
+}
