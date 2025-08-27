@@ -7,6 +7,7 @@ from garisom_tools import GarisomModel
 import pandas as pd
 import os
 from datetime import datetime
+import json
 
 
 def get_ground_truth(population: int):
@@ -26,9 +27,9 @@ def get_ground_truth(population: int):
     return ground
 
 
-def get_parameter_and_configuration_files() -> tuple[str, pd.DataFrame]:
-    return os.path.abspath("../DBG/configuration.csv"), \
-        pd.read_csv("../DBG/parameters.csv")
+def get_parameter_and_configuration_files(base_dir: str) -> tuple[str, pd.DataFrame]:
+    return os.path.abspath(os.path.join(base_dir, "configuration.csv")), \
+        pd.read_csv(os.path.join(base_dir, "parameters.csv"))
 
 
 def main():
@@ -49,6 +50,18 @@ def main():
         "--model", "-m",
         help="Directory path to model executable.",
         required=True,
+        type=str
+    )
+    parser.add_argument(
+        "--param", "-p",
+        help="Directory path to JSON file container 'parameters' key.",
+        required=False,
+        type=str
+    )
+    parser.add_argument(
+        "--param_dir", "-pd",
+        help="Directory path that holds configuration and parameter files.",
+        default="../DBG/",
         type=str
     )
     parser.add_argument(
@@ -76,14 +89,27 @@ def main():
     ground = get_ground_truth(config.pop)
 
     # Get original parameter and configuration files
-    model_config, params = get_parameter_and_configuration_files()
+    model_config, params = get_parameter_and_configuration_files(args.param_dir)
+
+    # Overwrite base parameters if param file passed in
+    if args.param:
+        with open(args.param, "+r") as f:
+            f = json.load(f)
+
+            if "parameters" in f:
+                for param, value in f['parameters'].items():
+                    print(f"Overwritting {param} with {value}.")
+                    params[param] = value
+            else:
+                raise Exception("No parameters found in JSON object.")
 
     run_kwargs = {
         'config_file': model_config,
         'params': params,
         'model_dir': model_dir,
         'population': config.pop,
-        'verbose': args.verbose
+        'verbose': args.verbose,
+        'return_on_fail': True
     }
 
     eval_kwargs = {
