@@ -28,7 +28,7 @@
         "modes": ["max", "max"]
     },
     "workers": 32,
-    "samples": 8192,
+    "samples": 4096,
     "start_day": 201,
     "end_day": 237,
     "pop": 1
