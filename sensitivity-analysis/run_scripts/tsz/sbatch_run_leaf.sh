@@ -15,7 +15,7 @@ PARAMS="../montecarlo/output/tsz/leaftemp/20250728_152453/config.json"
 
 mkdir -p out
 
-ml rclone gcc/14.2
+ml rclone gcc/14.3
 
 SHARED_SOURCE_DIR=~/hpc-share/fremont-cottonwood-dbg-garisom/garisom/02_program_code
 WORKDIR=/scratch/$USER/job_${SLURM_JOB_ID}
