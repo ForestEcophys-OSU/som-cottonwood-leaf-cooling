@@ -38,6 +38,9 @@ EXP_OUT="${EXP_DIR}/${EXP}/exp.out"
 mkdir -p "${EXP_DIR}/${EXP}/"
 
 echo "EXPERIMENT LEAF-ENERGY POPULATION ${pop}" >> $EXP_OUT
-nohup python sa.py -i sa_problems/${pop}/${EXP}.json -o ${EXP_DIR}/${EXP}/ -m $WORKDIR -p $PARAMS -pd ../DBG-leaf -v 2>&1 >> $EXP_OUT &
+python sa.py -i sa_problems/${pop}/${EXP}.json -o ${EXP_DIR}/${EXP}/ -m $WORKDIR -p $PARAMS -pd ../DBG-leaf -v 2>&1 >> $EXP_OUT
 
 rm -rf $WORKDIR
+
+cd ~/hpc-share/fremont-cottonwood-dbg-garisom/
+./bash/sync_to_box.sh
