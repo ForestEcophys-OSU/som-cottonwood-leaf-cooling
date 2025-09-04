@@ -54,7 +54,7 @@ def main():
     )
     parser.add_argument(
         "--param", "-p",
-        help="Directory path to JSON file container 'parameters' key.",
+        help="Directory path to JSON file containing 'parameters' key.",
         required=False,
         type=str
     )

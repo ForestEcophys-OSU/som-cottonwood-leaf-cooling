@@ -6,9 +6,9 @@ from argparse import ArgumentParser
 from datetime import datetime
 
 
-def get_parameter_and_configuration_files() -> tuple[str, pd.DataFrame]:
-    return os.path.abspath("../DBG/configuration.csv"), \
-        pd.read_csv("../DBG/parameters.csv")
+def get_parameter_and_configuration_files(base_dir: str) -> tuple[str, pd.DataFrame]:
+    return os.path.abspath(os.path.join(base_dir, "configuration.csv")), \
+        pd.read_csv(os.path.join(base_dir, "parameters.csv"))
 
 
 def main():
@@ -31,6 +31,17 @@ def main():
         help="Directory path to model executable.",
         required=True,
         type=str
+    )
+    parser.add_argument(
+        "--param_dir", "-pd",
+        help="Directory path that holds configuration and parameter files.",
+        default="../DBG/",
+        type=str
+    )
+    parser.add_argument(
+        "--verbose", "-v",
+        help="Enable saving of model stdout.",
+        action="store_true"
     )
     args = parser.parse_args()
 
@@ -58,7 +69,7 @@ def main():
     # Get MonteCarloConfig, model, and model config/parameters
     model = GarisomModel()
 
-    model_config, params = get_parameter_and_configuration_files()
+    model_config, params = get_parameter_and_configuration_files(args.param_dir)
 
     # Set run kwargs for model
     run_kwargs = {
@@ -66,6 +77,7 @@ def main():
         'params': params,
         'model_dir': model_dir,
         'population': mc_config.population,
+        'verbose': args.verbose,
         'return_on_fail': True  # Needed to compute statistics
     }
 

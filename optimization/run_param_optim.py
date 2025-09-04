@@ -29,9 +29,9 @@ def get_ground_truth(population: int):
     return ground
 
 
-def get_parameter_and_configuration_files() -> tuple[str, pd.DataFrame]:
-    return os.path.abspath("../DBG/configuration.csv"), \
-        pd.read_csv("../DBG/parameters.csv")
+def get_parameter_and_configuration_files(base_dir: str) -> tuple[str, pd.DataFrame]:
+    return os.path.abspath(os.path.join(base_dir, "configuration.csv")), \
+        pd.read_csv(os.path.join(base_dir, "parameters.csv"))
 
 
 def main():
@@ -52,6 +52,12 @@ def main():
         "--model", "-m",
         help="Directory path to model executable.",
         required=True,
+        type=str
+    )
+    parser.add_argument(
+        "--param_dir", "-pd",
+        help="Directory path that holds configuration and parameter files.",
+        default="../DBG/",
         type=str
     )
     parser.add_argument(
@@ -87,7 +93,7 @@ def main():
     ground = get_ground_truth(optim_config.population)
 
     # Get original parameter and configuration files
-    model_config, params = get_parameter_and_configuration_files()
+    model_config, params = get_parameter_and_configuration_files(args.param_dir)
 
     run_kwargs = {
         'config_file': model_config,
