@@ -43,7 +43,7 @@ EXP_OUT="${EXP_DIR}/${EXP}/optim.out"
 mkdir -p "${EXP_DIR}/${EXP}/"
 
 echo "$(date '+%Y-%m-%d %H:%M:%S') - EXPERIMENT ${EXP} POPULATION ${pop}" >> $EXP_OUT
-python run_param_optim.py -i run_configs/${pop}/${EXP}.json -o $EXP_DIR -m $WORKDIR 2>&1 >> $EXP_OUT
+python run_param_optim.py -i run_configs/${pop}/${EXP}.json -o $EXP_DIR -m $WORKDIR -pd ../DBG-leaf/ 2>&1 >> $EXP_OUT
 
 rm -rf $WORKDIR
 
