@@ -1,0 +1,19 @@
+{
+    "space": {
+        "i_leafAreaIndex": ["truncnorm", [3.61, 1.73]],
+        "i_rootBeta": ["uniform", [0.9, 1]],
+        "i_fieldCapFrac": ["uniform", [0, 1]],
+        "i_fieldCapPercInit": ["uniform", [0, 100]],
+        "i_kmaxTree": ["truncnorm", [238.61, 103.67]]
+    },
+    "metric": {
+        "params": ["leaftemp.a", "leaftemp.b", "leaftemp.c", "leaftemp.d"],
+        "metrics": ["r2", "mape", "mse", "nnse"],
+        "modes": ["max", "min", "min", "max"]
+    },
+    "num_worker": -1,
+    "num_samples": 2000,
+    "population": 1,
+    "start_day": 238,
+    "end_day": 241
+}
