@@ -7,7 +7,7 @@
 #SBATCH --mail-type=ALL,TIMELIMIT_90 # send email notification when job reaches 90% of time limit
 #SBATCH --mail-user=pannikkc@oregonstate.edu
 
-ml rclone gcc/14.2
+ml rclone gcc/14.3
 
 cd ~/hpc-share/fremont-cottonwood-dbg-garisom/
 

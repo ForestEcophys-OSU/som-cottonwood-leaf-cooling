@@ -8,7 +8,7 @@
 #SBATCH --mail-user=pannikkc@oregonstate.edu
 
 # Load slurm modules
-ml rclone gcc/14.2
+ml rclone gcc/14.3
 
 # Make a tmp scratch space to allow for isolated model builds and prevent race conditions
 SHARED_SOURCE_DIR=~/hpc-share/fremont-cottonwood-dbg-garisom/garisom/02_program_code
