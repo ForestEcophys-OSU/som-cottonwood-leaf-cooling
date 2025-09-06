@@ -100,7 +100,7 @@ while CONT
     %gvs_l=Leaf_paras.gvs*(1-Leaf_paras.sr);
     %gv=gvs_u*gva/(gvs_u+gva)+gvs_l*gva/(gvs_l+gva);
     %% photosynthesis conductance model or named FvCB&Medlyn Model
-    Leaf_ph=Func_Leaf_FvCB_Photosynthesis_Model(Phot_paras.V25, Phot_paras.J25, Phot_paras.Rd25, Tleaf, 35, Envi_paras.PAR*4.57, Ci, Envi_paras.Pa*1000, 0.7, 0.7);
+    Leaf_ph=Func_Leaf_FvCB_Photosynthesis_Model(Phot_paras.V25, Phot_paras.J25, Phot_paras.Rd25, Tleaf, 35, Envi_paras.PAR*4.57, Ci, Envi_paras.Pa*1000, constant.PSII, constant.Phi);
     vpd=0.611*exp(17.502*Tleaf./(Tleaf +240.97)).*(1 -Envi_paras.RH/100);
     gvs=1.6*(1+Phot_paras.g1./sqrt(vpd)).*Leaf_ph.An./Phot_paras.ca;
     gvs(Envi_paras.PAR==0 | gvs<=0) = 0.00001;

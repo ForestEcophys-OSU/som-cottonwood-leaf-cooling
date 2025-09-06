@@ -9,5 +9,5 @@ function scaled = Func_Temperature_Bernacchi(delta_H, c, T)
 % R, universal gas constant,  J K−1 mol−1
 R = 8.314;
 Tk = T + 273.15;
-scaled = exp(c - (delta_H ./ (R .* (T + 273.15))));
-% scaled = c .* exp(((Tk - 298) .* delta_H) ./ (R .* Tk .* 298));
+% scaled = exp(c - (delta_H ./ (R .* (T + 273.15))));
+scaled = c .* exp(((Tk - 298) .* delta_H) ./ (R .* Tk .* 298));
