@@ -1,0 +1,98 @@
+{
+    "space": {
+        "i_baperga": [
+            "truncnorm",
+            [
+                43.61021,
+                2.78188
+            ]
+        ],
+        "i_height": [
+            "truncnorm",
+            [
+                1.586,
+                0.09
+            ]
+        ],
+        "i_leafWidth": [
+            "truncnorm",
+            [
+                0.03439,
+                0.00089
+            ]
+        ],
+        "i_cr": [
+            "uniform",
+            [
+                10.9202863,
+                12.3192219
+            ]
+        ],
+        "i_br": [
+            "uniform",
+            [
+                2.51387228,
+                2.79282904
+            ]
+        ],
+        "i_cs": [
+            "uniform",
+            [
+                10.9202863,
+                12.3192219
+            ]
+        ],
+        "i_bs": [
+            "uniform",
+            [
+                2.51387228,
+                2.79282904
+            ]
+        ],
+        "i_cl": [
+            "uniform",
+            [
+                10.9202863,
+                12.3192219
+            ]
+        ],
+        "i_bl": [
+            "uniform",
+            [
+                2.51387228,
+                2.79282904
+            ]
+        ],
+        "i_vmax25": [
+            "truncnorm",
+            [
+                93.877834,
+                3.85
+            ]
+        ],
+        "i_jmax25": [
+            "truncnorm",
+            [
+                156.78,
+                6.43
+            ]
+        ]
+    },
+    "parameters": {
+        "i_leafAreaIndex": 1.3797205533767225,
+        "i_rootBeta": 0.9584397087408489,
+        "i_fieldCapFrac": 0.377875875885165,
+        "i_fieldCapPercInit": 33.31820257667095,
+        "i_kmaxTree": 185.29391499743195
+    },
+    "outputs": [
+        "P-PD",
+        "P-MD",
+        "GW",
+        "E-MD",
+        "leaftemp"
+    ],
+    "num_worker": 32,
+    "num_samples": 4096,
+    "population": 1
+}
