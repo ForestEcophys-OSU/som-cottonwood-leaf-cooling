@@ -2,6 +2,7 @@
 DBG/*
 DBG-*/*
 !DBG-leaf/*
+!DBG-ground-leaftemp/*
 meeting_notes.md
 sa_test_plan.md
 env/
