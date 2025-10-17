@@ -3,6 +3,7 @@ DBG/*
 DBG-*/*
 !DBG-leaf/*
 !DBG-full-irrigation/*
+!DBG-constant-solar/*
 meeting_notes.md
 sa_test_plan.md
 env/

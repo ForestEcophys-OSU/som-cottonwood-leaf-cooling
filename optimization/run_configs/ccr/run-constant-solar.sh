@@ -10,6 +10,7 @@
 ml rclone gcc/14.3
 
 cd ~/hpc-share/fremont-cottonwood-dbg-garisom/
+git pull
 git checkout constant-solar
 
 cd ./garisom/02_program_code
