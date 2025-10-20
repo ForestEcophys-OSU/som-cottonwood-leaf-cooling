@@ -20,6 +20,7 @@ make
 cd ../..
 
 source env/bin/activate
+python ./garisom/06_data_prep/file_builder.py param_data_template.csv -i 2023 -f 2023
 cd ./optimization/
 
 EXP="leaftemp"
@@ -29,9 +30,10 @@ EXP_OUT="$EXP_DIR/${EXP}/optim.out"
 mkdir -p "${EXP_DIR}/${EXP}/"
 
 echo "$(date '+%Y-%m-%d %H:%M:%S') - EXPERIMENT ${EXP} POPULATION CCR" >> $EXP_OUT
-python run_param_optim.py -i run_configs/ccr/${EXP}.json -o $EXP_DIR -m ../garisom/02_program_code -pd ../DBG-full-irrigation/ 2>&1 >> $EXP_OUT
+python run_param_optim.py -i run_configs/ccr/${EXP}.json -o $EXP_DIR -m ../garisom/02_program_code -pd ../DBG/ 2>&1 >> $EXP_OUT
 
 cd ..
+git stash
 git checkout main
 
 ./bash/sync_to_box.sh
