@@ -1,0 +1,88 @@
+---
+layout: default
+description: Template for team page.
+---
+
+{% if page.team and site.data[page.team] %}
+  {% assign team = site.data[page.team] %}
+{% elsif site.data.team %}
+  {% assign team = site.data.team %}
+{% endif %}
+
+{{ content }}
+
+{% for member in team %}
+  <div class="d-flex team-member">
+    <div class="flex-shrink-0 me-3">
+      {% if member.image %}
+        <img src="{{ member.image | relative_url }}" alt="{{ member.name }}">
+      {% endif %}
+    </div>
+    <div>
+      <h5 id="{{ member.name | strip | url_encode }}">
+        {{ member.name }}
+        {% if member.role %}
+          <small class="text-muted">| {{ member.role }}</small>
+        {% endif %}
+      </h5>
+
+      {{ member.description | markdownify }}
+
+      <ul class="list-inline">
+        {% if member.orcid %}
+          <li class="list-inline-item">
+            <a href="https://orcid.org/{{ member.orcid }}"><i class="fa-brands fa-orcid"></i></a>
+          </li>
+        {% endif %}
+
+        {% if member.researchgate %}
+          <li class="list-inline-item">
+            <a href="https://researchgate.net/profile/{{ member.researchgate }}"><i class="fa-brands fa-researchgate"></i></a>
+          </li>
+        {% endif %}
+        
+        {% if member.googlescholar %}
+          <li class="list-inline-item">
+            <a href="https://scholar.google.com/citations?user={{ member.googlescholar }}"><i class="fa-brands fa-google-scholar"></i></a>
+          </li>
+        {% endif %}
+
+        {% if member.bluesky %}
+          <li class="list-inline-item">
+            <a href="https://bsky.app/profile/{{ member.bluesky }}"><i class="fa-brands fa-bluesky"></i></a>
+          </li>
+        {% endif %}
+
+        {% if member.mastodon %}
+          <li class="list-inline-item">
+            <a href="{{ member.mastodon }}"><i class="fa-brands fa-mastodon"></i></a>
+          </li>
+        {% endif %}
+
+        {% if member.twitter %}
+          <li class="list-inline-item">
+            <a href="https://twitter.com/{{ member.twitter }}"><i class="fa-brands fa-x-twitter"></i></a>
+          </li>
+        {% endif %}
+
+        {% if member.linkedin %}
+          <li class="list-inline-item">
+            <a href="https://linkedin.com/in/{{ member.linkedin }}"><i class="fa-brands fa-linkedin"></i></a>
+          </li>
+        {% endif %}
+
+        {% if member.github %}
+          <li class="list-inline-item">
+            <a href="https://github.com/{{ member.github }}"><i class="fa-brands fa-github"></i></a>
+          </li>
+        {% endif %}
+
+        {% if member.email %}
+          <li class="list-inline-item">
+            <a href="mailto:{{ member.email }}"><i class="fa-regular fa-envelope"></i></a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+{% endfor %}

@@ -1,0 +1,97 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+#
+# If you need help with YAML syntax, here are some quick references for you:
+# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
+# https://learnxinyminutes.com/docs/yaml/
+#
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+
+title: SOM-Cottonwood-Leaf-Cooling
+email: pannikkc@oregonstate.edu
+description: >- # this means to ignore newlines until "baseurl:"
+  This website presents the methods and findings of a research project examining how effective stomatal optimization models are in predicting plant responses to heatwave and drought stress.
+baseurl: "/som-cottonwood-leaf-cooling" # the subpath of your site, e.g. /blog
+url: "colinpannikkat.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+# twitter_username: jekyllrb
+github_username:  colinpannikkat
+
+# Build settings
+# theme: peterdesmet/petridish@3.1
+# remote_theme: peterdesmet/petridish@3.1
+
+# SOCIAL PROFILES
+social:
+  email: panikkc@oregonstate.edu
+  linkedin: https://linkedin.com/in/colinpannikkat
+  github: colinpannikkat               # Can also be a github_username/repository
+
+# THEME SETTINGS (ALL OPTIONAL)
+posts_on_home: 2                        # Show x number of latest posts on homepage, can be 0
+archive_permalink: /blog/               # Permalink of page using the archive.html layout, required when using post tags
+github_edit: true                       # Show an "edit this page" link in the footer, can also be name of branch (default: main)
+colors:
+  links: "#007bff"                      # Color for links: use a readable color that contrasts well with dark text
+  banner: "#007bff"                     # Background color for page banners: use color that contrasts well with white
+  footer: "#6c757d"                     # Background color for footer: use color that contrasts well with white
+font_serif: true                        # Font type for page content: serif (default) or slightly smaller sans-serif
+rounded_corners: true                   # Enable (default) rounded corners on boxes and buttons
+logo: /assets/theme/images/fel.png # Logo in navbar, will be displayed with 30px height
+
+# BUILD SETTINGS
+markdown: kramdown
+plugins:                                # If you build your site on gh-pages, only use these plugins: https://pages.github.com/versions/
+  - jekyll-feed
+  - jekyll-sitemap
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - LICENSE
+  - package-lock.json
+  - package.json
+  - jekyll-theme-petridish.gemspec
+  - CITATION.cff
+
+# FRONTMATTER DEFAULTS
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default                   # Use default.html layout by default for all files
+  - scope:
+      type: posts
+    values:
+      permalink: "/blog/:year/:slug/"   # Use /blog/yyyy/{filename}/ as permalink for all posts
+
+# Exclude from processing.
+# The following items will not be processed, by default.
+# Any item listed under the `exclude:` key here will be automatically added to
+# the internal "default list".
+#
+# Excluded items can be processed by explicitly listing the directories or
+# their entries' file path in the `include:` list.
+#
+# exclude:
+#   - .sass-cache/
+#   - .jekyll-cache/
+#   - gemfiles/
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules/
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/
