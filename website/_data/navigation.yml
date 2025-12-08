@@ -2,8 +2,13 @@
 
 - text: Home # Note that users can also reach the homepage by clicking the site's title on the left in the navbar
   href: /
-- text: About
-  href: /about/
-- text: GitHub
+# - text: About
+#   href: /about/
+- text: Authors
+  href: /authors/
+- text: Project GitHub
   href: https://github.com/colinpannikkat/som-cottonwood-leaf-cooling
+  new_window: true
+- text: Lab Website
+  href: https://forestecophys.com/
   new_window: true
