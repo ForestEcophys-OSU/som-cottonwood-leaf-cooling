@@ -16,7 +16,7 @@ permalink: /
   - [Treatment Averages](#treatment-averages)
   - [Leaf-to-air Temperature Difference](#leaf-to-air-temperature-difference)
   - [Error Plots](#error-plots)
-  - [Transpiration Predictions over Time](#transpiration-predictions-over-time)
+  - [Transpiration and Stomatal Conductance Predictions over Time](#transpiration-and-stomatal-conductance-predictions-over-time)
 - [Citations](#citations)
 
 ---
@@ -77,14 +77,32 @@ Error plots for different optimization variables.
     <img src="{{ '/assets/images/figures/errors_optim-P-MD.png' | relative_url }}" alt="Error metrics for outputs optimized on P-MD" style="max-width:100%; cursor: zoom-in;" />
 </a>
 
-### Transpiration Predictions over Time
-Transpiration predictions over time for lowest and highest elevation source populations
+### Transpiration and Stomatal Conductance Predictions over Time
+Transpiration predictions over time for lowest and highest elevation source populations, with parameters optimized on different measurement variables.
 <a href="{{ '/assets/images/figures/E-MD_high-low-pop-compare_ground-and-pred_fit-on-GW.png' | relative_url }}" target="_blank">
     <img src="{{ '/assets/images/figures/E-MD_high-low-pop-compare_ground-and-pred_fit-on-GW.png' | relative_url }}" alt="Predicted vs Ground: E-MD optimized on GW" style="max-width:100%; cursor: zoom-in;" />
 </a>
 
 <a href="{{ '/assets/images/figures/E-MD_high-low-pop-compare_ground-and-pred_fit-on-leaftemp.png' | relative_url }}" target="_blank">
     <img src="{{ '/assets/images/figures/E-MD_high-low-pop-compare_ground-and-pred_fit-on-leaftemp.png' | relative_url }}" alt="Predicted vs Ground: E-MD optimized on leaftemp" style="max-width:100%; cursor: zoom-in;" />
+</a>
+
+<a href="{{ '/assets/images/figures/E-MD_high-low-pop-compare_ground-and-pred_fit-on-P-MD.png' | relative_url }}" target="_blank">
+    <img src="{{ '/assets/images/figures/E-MD_high-low-pop-compare_ground-and-pred_fit-on-P-MD.png' | relative_url }}" alt="Predicted vs Ground: E-MD optimized on P-MD" style="max-width:100%; cursor: zoom-in;" />
+</a>
+
+Stomatal conductance predictions over time for lowest and highest elevation source populations, with parameters optimized on different measurement variables.
+
+<a href="{{ '/assets/images/figures/GW_high-low-pop-compare_ground-and-pred_fit-on-GW.png' | relative_url }}" target="_blank">
+    <img src="{{ '/assets/images/figures/GW_high-low-pop-compare_ground-and-pred_fit-on-GW.png' | relative_url }}" alt="Predicted vs Ground: GW optimized on GW" style="max-width:100%; cursor: zoom-in;" />
+</a>
+
+<a href="{{ '/assets/images/figures/GW_high-low-pop-compare_ground-and-pred_fit-on-leaftemp.png' | relative_url }}" target="_blank">
+    <img src="{{ '/assets/images/figures/GW_high-low-pop-compare_ground-and-pred_fit-on-leaftemp.png' | relative_url }}" alt="Predicted vs Ground: GW optimized on leaftemp" style="max-width:100%; cursor: zoom-in;" />
+</a>
+
+<a href="{{ '/assets/images/figures/GW_high-low-pop-compare_ground-and-pred_fit-on-P-MD.png' | relative_url }}" target="_blank">
+    <img src="{{ '/assets/images/figures/GW_high-low-pop-compare_ground-and-pred_fit-on-P-MD.png' | relative_url }}" alt="Predicted vs Ground: GW optimized on P-MD" style="max-width:100%; cursor: zoom-in;" />
 </a>
 
 ## Citations
