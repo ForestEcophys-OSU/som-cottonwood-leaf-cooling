@@ -3,7 +3,8 @@
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
 layout: home
-title: Stomatal Optimization Theory Overestimates Leaf Cooling in Populus fremontii Saplings During Drought and Episodic Heatwave Stress
+title: Stomatal Optimization Theory Overestimates Leaf Cooling in <em>Populus fremontii</em> During Hot-Droughts
+description: Poster 2043 <br> Session B43I <br> Thursday, 18 December 2025; 14:15 - 17:45 CST
 permalink: /
 # background: /assets/images/plants.jpeg/
 ---
@@ -14,8 +15,8 @@ permalink: /
 - [Extra Figures](#extra-figures)
   - [Treatment Averages](#treatment-averages)
   - [Leaf-to-air Temperature Difference](#leaf-to-air-temperature-difference)
-  - [Sensitivity Analysis](#sensitivity-analysis)
   - [Error Plots](#error-plots)
+  - [Transpiration Predictions over Time](#transpiration-predictions-over-time)
 - [Citations](#citations)
 
 ---
@@ -28,11 +29,63 @@ permalink: /
 ## Extra Figures
 ### Treatment Averages
 
+<a href="{{ '/assets/images/figures/treatment-averages_leaf-air_optim-leaftemp.png' | relative_url }}" target="_blank">
+    <img src="{{ '/assets/images/figures/treatment-averages_leaf-air_optim-leaftemp.png' | relative_url }}" alt="Treatment Averages: Leaf-to-air difference when optimized on leaftemp" style="max-width:100%; cursor: zoom-in;" />
+</a>
+
+<a href="{{ '/assets/images/figures/treatment-averages_GW_optim-P-MD.png' | relative_url }}" target="_blank">
+    <img src="{{ '/assets/images/figures/treatment-averages_GW_optim-P-MD.png' | relative_url }}" alt="Treatment Averages: GW when optimized on P-MD" style="max-width:100%; cursor: zoom-in;" />
+</a>
+
+<a href="{{ '/assets/images/figures/treatment-averages_leaf-air_optim-P-MD.png' | relative_url }}" target="_blank">
+    <img src="{{ '/assets/images/figures/treatment-averages_leaf-air_optim-P-MD.png' | relative_url }}" alt="Treatment Averages: Leaf-to-air difference when optimized on P-MD" style="max-width:100%; cursor: zoom-in;" />
+</a>
+
 ### Leaf-to-air Temperature Difference
 
-### Sensitivity Analysis
+JLA (1521m source elevation) population predictions
+<a href="{{ '/assets/images/figures/leaft-air-diff_optim-leaftemp_pop-jla.png' | relative_url }}" target="_blank">
+    <img src="{{ '/assets/images/figures/leaft-air-diff_optim-leaftemp_pop-jla.png' | relative_url }}" alt="Predicted vs. Measured Leaf-Air Temperature Difference (fit on leaf temperature)" style="max-width:100%; cursor: zoom-in;" />
+</a>
+
+<a href="{{ '/assets/images/figures/leaft-air-diff_optim-P-MD_pop-jla.png' | relative_url }}" target="_blank">
+    <img src="{{ '/assets/images/figures/leaft-air-diff_optim-P-MD_pop-jla.png' | relative_url }}" alt="Predicted vs. Measured Leaf-Air Temperature Difference (fit on P-MD, pop jla)" style="max-width:100%; cursor: zoom-in;" />
+</a>
+
+CCR (72m source elevation) population predictions
+<a href="{{ '/assets/images/figures/leaft-air-diff_optim-P-MD_pop-ccr.png' | relative_url }}" target="_blank">
+    <img src="{{ '/assets/images/figures/leaft-air-diff_optim-P-MD_pop-ccr.png' | relative_url }}" alt="Predicted vs. Measured Leaf-Air Temperature Difference (fit on P-MD, pop ccr)" style="max-width:100%; cursor: zoom-in;" />
+</a>
+
+Comparison across Sperry, Zhu, and Guo model, parameters fit on leaf temperature
+<a href="{{ '/assets/images/figures/model_comparison_leaft-air-diff.png' | relative_url }}" target="_blank">
+    <img src="{{ '/assets/images/figures/model_comparison_leaft-air-diff.png' | relative_url }}" alt="Predicted vs. Measured Leaf-Air Temperature Difference (Sperry, Zhu, Guo)" style="max-width:100%; cursor: zoom-in;" />
+</a>
 
 ### Error Plots
+Error plots for different optimization variables.
+
+<a href="{{ '/assets/images/figures/errors_optim-GW.png' | relative_url }}" target="_blank">
+    <img src="{{ '/assets/images/figures/errors_optim-GW.png' | relative_url }}" alt="Error metrics for outputs optimized on GW" style="max-width:100%; cursor: zoom-in;" />
+</a>
+
+<a href="{{ '/assets/images/figures/errors_optim-leaftemp.png' | relative_url }}" target="_blank">
+    <img src="{{ '/assets/images/figures/errors_optim-leaftemp.png' | relative_url }}" alt="Error metrics for outputs optimized on leaftemp" style="max-width:100%; cursor: zoom-in;" />
+</a>
+
+<a href="{{ '/assets/images/figures/errors_optim-P-MD.png' | relative_url }}" target="_blank">
+    <img src="{{ '/assets/images/figures/errors_optim-P-MD.png' | relative_url }}" alt="Error metrics for outputs optimized on P-MD" style="max-width:100%; cursor: zoom-in;" />
+</a>
+
+### Transpiration Predictions over Time
+Transpiration predictions over time for lowest and highest elevation source populations
+<a href="{{ '/assets/images/figures/E-MD_high-low-pop-compare_ground-and-pred_fit-on-GW.png' | relative_url }}" target="_blank">
+    <img src="{{ '/assets/images/figures/E-MD_high-low-pop-compare_ground-and-pred_fit-on-GW.png' | relative_url }}" alt="Predicted vs Ground: E-MD optimized on GW" style="max-width:100%; cursor: zoom-in;" />
+</a>
+
+<a href="{{ '/assets/images/figures/E-MD_high-low-pop-compare_ground-and-pred_fit-on-leaftemp.png' | relative_url }}" target="_blank">
+    <img src="{{ '/assets/images/figures/E-MD_high-low-pop-compare_ground-and-pred_fit-on-leaftemp.png' | relative_url }}" alt="Predicted vs Ground: E-MD optimized on leaftemp" style="max-width:100%; cursor: zoom-in;" />
+</a>
 
 ## Citations
 
@@ -61,8 +114,6 @@ permalink: /
   <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_id=info%3Adoi%2F10.1093%2Ftreephys%2Ftpad054&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.atitle=Similar%20patterns%20of%20leaf%20temperatures%20and%20thermal%20acclimation%20to%20warming%20in%20temperate%20and%20tropical%20tree%20canopies&amp;rft.jtitle=Tree%20Physiology&amp;rft.stitle=Tree%20Physiol&amp;rft.volume=43&amp;rft.issue=8&amp;rft.aufirst=K%20Y&amp;rft.aulast=Crous&amp;rft.au=K%20Y%20Crous&amp;rft.au=A%20W%20Cheesman&amp;rft.au=K%20Middleby&amp;rft.au=E%20I%20E%20Rogers&amp;rft.au=A%20Wujeska-Klause&amp;rft.au=A%20Y%20M%20Bouet&amp;rft.au=D%20S%20Ellsworth&amp;rft.au=M%20J%20Liddell&amp;rft.au=L%20A%20Cernusak&amp;rft.au=C%20V%20M%20Barton&amp;rft.date=2023&amp;rft.pages=1383-1399&amp;rft.spage=1383&amp;rft.epage=1399&amp;rft.issn=1758-4469"></span>
   <div class="csl-entry" style="margin-bottom: 1em;"><b><b>Ehleringer JR</b>, <b>Driscoll AW</b></b>. <b>2022</b>. Intrinsic water-use efficiency influences establishment in Encelia farinosa. <i>Oecologia</i> <b>199</b>: 563–578.</div>
   <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_id=info%3Adoi%2F10.1007%2Fs00442-022-05217-5&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.atitle=Intrinsic%20water-use%20efficiency%20influences%20establishment%20in%20Encelia%20farinosa&amp;rft.jtitle=Oecologia&amp;rft.stitle=Oecologia&amp;rft.volume=199&amp;rft.issue=3&amp;rft.aufirst=James%20R.&amp;rft.aulast=Ehleringer&amp;rft.au=James%20R.%20Ehleringer&amp;rft.au=Avery%20W.%20Driscoll&amp;rft.date=2022&amp;rft.pages=563-578&amp;rft.spage=563&amp;rft.epage=578&amp;rft.issn=1432-1939&amp;rft.language=en"></span>
-  <div class="csl-entry" style="margin-bottom: 1em;"><b>Fig. 2.1 Absorption spectrum (solid line) of a cottonwood leaf showing...</b> <i>ResearchGate</i>.</div>
-  <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Adc&amp;rft.type=webpage&amp;rft.title=Fig.%202.1%20Absorption%20spectrum%20(solid%20line)%20of%20a%20cottonwood%20leaf%20showing...&amp;rft.description=Download%20scientific%20diagram%20%7C%201%20Absorption%20spectrum%20(solid%20line)%20of%20a%20cottonwood%20leaf%20showing%20the%20red-edge%2C%20the%20pronounced%20drop%20in%20absorption%20at%20approximately%20700%20nm.%20The%20reflection%20of%20the%20upper%20surface%20(dashed%20line)%20and%20transmission%20through%20the%20leaf%20(dotted%20line)%20are%20also%20given%20(From%20Gates%201980)%C2%A0%20from%20publication%3A%20Photon%20Dissipation%20Rates%20as%20an%20Indicator%20of%20Ecosystem%20Health%20%7C%20Ecosystems%20arise%20and%20evolve%20predominantly%20through%20the%20thermodynamic%20imperative%20of%20dissipating%20the%20solar%20photon%20flux%20into%20heat.%20Organic%20pigments%20coupled%20to%20water%20inside%20cyanobacteria%2C%20algae%20and%20plants%20provide%20the%20dissipative%20structures%20for%20this%20entropy%20production.%20Viruses%2C...%20%7C%20Ecosystems%2C%20Photons%20and%20Indicators%20%7C%20ResearchGate%2C%20the%20professional%20network%20for%20scientists.&amp;rft.identifier=https%3A%2F%2Fwww.researchgate.net%2Ffigure%2FAbsorption-spectrum-solid-line-of-a-cottonwood-leaf-showing-the-red-edge-the_fig1_259933217&amp;rft.language=en"></span>
   <div class="csl-entry" style="margin-bottom: 1em;"><b><b>Ganz K</b>, <b>Still CJ</b>, <b>Rastogi B</b>, <b>Moskal LM</b></b>. <b>2025</b>. Overstory and understory leaves warm faster than air in evergreen needleleaf forests. <i>Agricultural and Forest Meteorology</i> <b>364</b>: 110456.</div>
   <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_id=info%3Adoi%2F10.1016%2Fj.agrformet.2025.110456&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.atitle=Overstory%20and%20understory%20leaves%20warm%20faster%20than%20air%20in%20evergreen%20needleleaf%20forests&amp;rft.jtitle=Agricultural%20and%20Forest%20Meteorology&amp;rft.stitle=Agricultural%20and%20Forest%20Meteorology&amp;rft.volume=364&amp;rft.aufirst=Keenan&amp;rft.aulast=Ganz&amp;rft.au=Keenan%20Ganz&amp;rft.au=Christopher%20J.%20Still&amp;rft.au=Bharat%20Rastogi&amp;rft.au=L.%20Monika%20Moskal&amp;rft.date=2025&amp;rft.pages=110456&amp;rft.issn=0168-1923"></span>
   <div class="csl-entry" style="margin-bottom: 1em;"><b><b>Garen JC</b>, <b>Michaletz ST</b></b>. <b>2025</b>. Temperature governs the relative contributions of cuticle and stomata to leaf minimum conductance. <i>New Phytologist</i> <b>245</b>: 1911–1923.</div>
@@ -87,6 +138,8 @@ permalink: /
   <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_id=info%3Adoi%2F10.1111%2Fnph.17588&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.atitle=Cuticular%20conductance%20of%20adaxial%20and%20abaxial%20leaf%20surfaces%20and%20its%20relation%20to%20minimum%20leaf%20surface%20conductance&amp;rft.jtitle=New%20Phytologist&amp;rft.volume=233&amp;rft.issue=1&amp;rft.aufirst=Diego%20A.&amp;rft.aulast=M%C3%A1rquez&amp;rft.au=Diego%20A.%20M%C3%A1rquez&amp;rft.au=Hilary%20Stuart-Williams&amp;rft.au=Graham%20D.%20Farquhar&amp;rft.au=Florian%20A.%20Busch&amp;rft.date=2022&amp;rft.pages=156-168&amp;rft.spage=156&amp;rft.epage=168&amp;rft.issn=1469-8137&amp;rft.language=en"></span>
   <div class="csl-entry" style="margin-bottom: 1em;"><b><b>Medlyn BE</b>, <b>Duursma RA</b>, <b>Eamus D</b>, <b>Ellsworth DS</b>, <b>Prentice IC</b>, <b>Barton CVM</b>, <b>Crous KY</b>, <b>De Angelis P</b>, <b>Freeman M</b>, <b>Wingate L</b></b>. <b>2011</b>. Reconciling the optimal and empirical approaches to modelling stomatal conductance. <i>Global Change Biology</i> <b>17</b>: 2134–2144.</div>
   <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_id=info%3Adoi%2F10.1111%2Fj.1365-2486.2010.02375.x&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.atitle=Reconciling%20the%20optimal%20and%20empirical%20approaches%20to%20modelling%20stomatal%20conductance&amp;rft.jtitle=Global%20Change%20Biology&amp;rft.volume=17&amp;rft.issue=6&amp;rft.aufirst=Belinda%20E.&amp;rft.aulast=Medlyn&amp;rft.au=Belinda%20E.%20Medlyn&amp;rft.au=Remko%20A.%20Duursma&amp;rft.au=Derek%20Eamus&amp;rft.au=David%20S.%20Ellsworth&amp;rft.au=I.%20Colin%20Prentice&amp;rft.au=Craig%20V.%20M.%20Barton&amp;rft.au=Kristine%20Y.%20Crous&amp;rft.au=Paolo%20De%20Angelis&amp;rft.au=Michael%20Freeman&amp;rft.au=Lisa%20Wingate&amp;rft.date=2011&amp;rft.pages=2134-2144&amp;rft.spage=2134&amp;rft.epage=2144&amp;rft.issn=1365-2486&amp;rft.language=en"></span>
+  <div class="csl-entry" style="margin-bottom: 1em;"><b><b>Michaelian K</b></b>. <b>2014</b>. Photon Dissipation Rates as an Indicator of Ecosystem Health. In: Environmental Indicators.</div>
+  <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_id=urn%3Aisbn%3A978-94-017-9498-5&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Abook&amp;rft.genre=bookitem&amp;rft.atitle=Photon%20Dissipation%20Rates%20as%20an%20Indicator%20of%20Ecosystem%20Health&amp;rft.aufirst=Karo&amp;rft.aulast=Michaelian&amp;rft.au=Karo%20Michaelian&amp;rft.date=2014-04-01&amp;rft.isbn=978-94-017-9498-5"></span>
   <div class="csl-entry" style="margin-bottom: 1em;"><b><b>Moran ME</b>, <b>Aparecido LMT</b>, <b>Koepke DF</b>, <b>Cooper HF</b>, <b>Doughty CE</b>, <b>Gehring CA</b>, <b>Throop HL</b>, <b>Whitham TG</b>, <b>Allan GJ</b>, <b>Hultine KR</b></b>. <b>2023</b>. Limits of thermal and hydrological tolerance in a foundation tree species (Populus fremontii) in the desert southwestern United States. <i>New Phytologist</i> <b>240</b>: 2298–2311.</div>
   <span class="Z3988" title="url_ver=Z39.88-2004&amp;ctx_ver=Z39.88-2004&amp;rfr_id=info%3Asid%2Fzotero.org%3A2&amp;rft_id=info%3Adoi%2F10.1111%2Fnph.19247&amp;rft_val_fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.atitle=Limits%20of%20thermal%20and%20hydrological%20tolerance%20in%20a%20foundation%20tree%20species%20(Populus%20fremontii)%20in%20the%20desert%20southwestern%20United%20States&amp;rft.jtitle=New%20Phytologist&amp;rft.volume=240&amp;rft.issue=6&amp;rft.aufirst=Madeline%20E.&amp;rft.aulast=Moran&amp;rft.au=Madeline%20E.%20Moran&amp;rft.au=Luiza%20M.%20T.%20Aparecido&amp;rft.au=Dan%20F.%20Koepke&amp;rft.au=Hillary%20F.%20Cooper&amp;rft.au=Christopher%20E.%20Doughty&amp;rft.au=Catherine%20A.%20Gehring&amp;rft.au=Heather%20L.%20Throop&amp;rft.au=Thomas%20G.%20Whitham&amp;rft.au=Gerard%20J.%20Allan&amp;rft.au=Kevin%20R.%20Hultine&amp;rft.date=2023&amp;rft.pages=2298-2311&amp;rft.spage=2298&amp;rft.epage=2311&amp;rft.issn=1469-8137&amp;rft.language=en"></span>
   <div class="csl-entry" style="margin-bottom: 1em;"><b><b>Muir CD</b></b>. <b>2019</b>. tealeaves: an R package for modelling leaf temperature using energy budgets. <i>AoB PLANTS</i> <b>11</b>: plz054.</div>
