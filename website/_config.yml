@@ -33,8 +33,8 @@ github_username:  colinpannikkat
 # SOCIAL PROFILES
 social:
   email: panikkc@oregonstate.edu
-  linkedin: https://linkedin.com/in/colinpannikkat
-  github: colinpannikkat               # Can also be a github_username/repository
+  # linkedin: https://linkedin.com/in/colinpannikkat
+  # github: colinpannikkat               # Can also be a github_username/repository
 
 # THEME SETTINGS (ALL OPTIONAL)
 posts_on_home: 2                        # Show x number of latest posts on homepage, can be 0

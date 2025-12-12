@@ -1,10 +1,10 @@
 # Project team members listed below will appear on the /team page
 
 - name: Colin Pannikkat
-  role: Undergraduate Researcher # Will appear next to name
-  # image: assets/images/colin.jpg
+  role: Undergraduate Researcher @ FEL
+  image: assets/images/people/colin.jpg
   description: > # Can be Markdown
-    A fourth-year Computer Science student with minors in Math and Economics, passionate about using computational and analytical skills to address environmental challenges and foster sustainable, data-driven solutions.
+    Colin is a fourth-year Computer Science student at Oregon State University with minors in Math and Economics, passionate about using his computational and analytical skills to address environmental challenges and foster sustainable, data-driven solutions.
   orcid: 0009-0002-1179-8188
   # researchgate: researchgate_username
   # googlescholar: googlescholar_username
@@ -16,17 +16,60 @@
   email: pannikkc@oregonstate.edu
 
 - name: Bradley Posch
+  role: Post-Doctoral Research Scientist @ DBG
+  image: https://dbg.org/wp-content/uploads/2023/03/Brad-Posch_square_small-360x360.jpg
+  description: Dr. Posch is a plant ecophysiologist who studies how plants respond to environmental stressors such as heat and drought. Posch received his Ph.D. from the Australian National University and has worked as a postdoc under Dr. Nick Smith at Texas Tech University. Although Posch's research focuses on leaf gas exchange, he is also interested in the biochemical processes underlying physiological responses to warming.
+  email: Bposch@dbg.org
+  googlescholar: 6CjuJnIAAAAJ
 
 - name: Dan Koepke
+  role: Research Technician @ DBG
+  image: https://dbg.org/wp-content/uploads/2018/06/Dan-Koepke_480x480.jpg
+  description: Koepke assists lab personnel and colleagues with field and laboratory projects at Desert Botanical Garden. His work focuses on plant hydraulics and seeks to identify morphological and physiological traits that respond to environmental stresses, and how these traits are interrelated. In turn, information about trait expression improves the ability of site managers to restore ecosystems faced with environmental change.
+  email: dkoepke@dbg.org
+  googlescholar: ycDyM1IAAAAJ
 
 - name: Susan Bush
+  role: Field Ecology Program Director @ DBG
+  image: https://dbg.org/wp-content/uploads/2025/03/Susan-Bush-360x360.jpg
+  description: Dr. Bush is a global change ecologist whose research has largely focused on fluxes of carbon and water in both urban and natural ecosystems. Her research effort has spanned scales from leaf-level gas exchange and xylem vascular hydraulics of individual plants to landscape scale investigations of water and carbon exchange with the atmosphere as impacted by anthropogenic factors (urbanization, invasive species, and climate change).
+  email: sbush@dbg.org
+  googlescholar: ouQt0scAAAAJ
 
 - name: Alexandra Schuessler
+  role: Lab Manager @ DBG
+  image: https://dbg.org/wp-content/uploads/2022/04/Ali-Headshot.jpg
+  description: Ali manages the plant physiology and molecular labs. Where she works with the traits and function of traits in desert and arid riparian plants, along with the genomics and phylogenies of agave, cactus and other desert plants. One of her personal research interests is on dark septate endophytic fungi and how they influence plants in desert and riparian systems, where these fungi are potentially aiding plant growth regulator production, nutrient and water uptake and other positive plant growth responses.  
+  email: aschuessler@dbg.org
 
 - name: Jessica Guo
+  role: Assistant Professor of Climate/Biology, Harvey Mudd College
+  image: https://dbg.org/wp-content/uploads/2023/09/Jessica-Guo.jpeg
+  description: Dr. Guo is a plant ecologist and data scientist intrigued by plant strategies for surviving arid environments. She is particularly interested in disentangling the temporal patterns of plant responses to environmental extremes and uses Bayesian statistical approaches to evaluate empirical measurements from the field and lab. Guo also loves to teach reproducibility and data science skills in R. 
+  github: jessicaguo
+  googlescholar: QL5IkxkAAAAJ
 
-- name: Kelley Kerr
+- name: Kelly Kerr
+  image: https://dbg.org/wp-content/uploads/2022/09/Kerr-Photo.jpg
+  role: Postdoctoral Fellow, University of California, Santa Barbara
+  description: >
+    Kelly received her PhD from the University of Utah. Her research interests revolve around the resiliency of forest tree species to climate change. She is particularly interested in using tree physiology, genetics and modeling to understand and predict tree species' responses to the environment.
+  email: https://www.linkedin.com/in/kelly-kerr-78272522/
+  linkedin: kelly-kerr-78272522
+  googlescholar: Occ2awAAAAJ
 
 - name: Kevin Hultine
+  role: Director of Research / Plant Ecophysiologist @ DBG
+  image: https://dbg.org/wp-content/uploads/2018/06/Kevin-Hultine_480x480.jpg
+  description: >
+    Hultine's expertise involves studying how plants cope with environmental stress in desert ecosystems in urban, riparian and upland areas. He is focused on the duel effects of drought and thermal stress on plants and ecosystems in dryland regions worldwide. He applies stable isotope methods, measurements in plant water relations and measurements of plant carbon allocation and storage to improve the understanding of how desert plant systems function at multiple scales.
+  email: khultine@dbg.org
+  orcid: 0000-0001-9747-6037
+  googlescholar: 04hEUKIAAAAJ
 
 - name: German Vargas Gutierrez
+  role: Assistant Professor of Botany and Plant Pathology, Oregon State University
+  image: https://forestecophys.com/images/people/01_vargas.jpg
+  description: Dr. Vargas Gutierrez is a plant ecophysiologist interested in understanding how plants and ecosystems respond to climate change.
+  email: vargasgg@oregonstate.edu
+  googlescholar: 5WwcAhMAAAAJ
