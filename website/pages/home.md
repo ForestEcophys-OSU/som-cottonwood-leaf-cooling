@@ -11,6 +11,7 @@ permalink: /
 
 ## Table of Contents
 - [Table of Contents](#table-of-contents)
+- [Intro](#intro)
 - [Poster](#poster)
 - [Extra Figures](#extra-figures)
   - [Treatment Averages](#treatment-averages)
@@ -20,6 +21,14 @@ permalink: /
 - [Citations](#citations)
 
 ---
+
+## Intro
+
+The underlying assumption of stomatal optimization theory is that plants maximize instantaneous profit, where profit is the difference between carbon gain and hydraulic risk. We utilize gas-exchange and hydraulic data from a *Populus Fremontii* common garden to show that a commonly used stomatal optimization model fails to accurately simulate real-world behavior of plants during a hot-drought (simultaneous drought and heatwave), severely underestimating leaf temperature while still predicting minimal stomatal conductance.
+
+<!-- We identify that the issue lie within the leaf energy balance sub-model, showcasing that even when utilizing measured stomatal conductance values and collected forcing data, that leaf temperatures fail to rise above air temperatures. -->
+
+We also release a Python package [garisom-tools](https://github.com/colinpannikkat/garisom-tools/) that offers assorted tools for running the GARISOM/Sperry model, intending to simplify and speed up the experimentation process.
 
 ## Poster
 <a href="{{ '/assets/images/poster.jpg' | relative_url }}" target="_blank">
