@@ -15,6 +15,13 @@
   github: colinpannikkat
   email: pannikkc@oregonstate.edu
 
+- name: German Vargas Gutierrez
+  role: Assistant Professor of Botany and Plant Pathology, Oregon State University
+  image: https://forestecophys.com/images/people/01_vargas.jpg
+  description: Dr. Vargas Gutierrez is a plant ecophysiologist interested in understanding how plants and ecosystems respond to climate change.
+  email: vargasgg@oregonstate.edu
+  googlescholar: 5WwcAhMAAAAJ
+
 - name: Bradley Posch
   role: Post-Doctoral Research Scientist @ DBG
   image: https://dbg.org/wp-content/uploads/2023/03/Brad-Posch_square_small-360x360.jpg
@@ -66,10 +73,3 @@
   email: khultine@dbg.org
   orcid: 0000-0001-9747-6037
   googlescholar: 04hEUKIAAAAJ
-
-- name: German Vargas Gutierrez
-  role: Assistant Professor of Botany and Plant Pathology, Oregon State University
-  image: https://forestecophys.com/images/people/01_vargas.jpg
-  description: Dr. Vargas Gutierrez is a plant ecophysiologist interested in understanding how plants and ecosystems respond to climate change.
-  email: vargasgg@oregonstate.edu
-  googlescholar: 5WwcAhMAAAAJ
