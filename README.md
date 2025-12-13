@@ -1,6 +1,6 @@
 # Stomatal Optimization Model — Cottonwood Leaf Cooling
 
-This repository stores all project code and data for the cottonwood leaf cooling modeling project. The aim of this project was to identify the limitations of using stomatal optimization models to represent the physiology process of trees during hot-droughts.
+This repository stores all project code and data for the cottonwood leaf cooling modeling project. The aim of this project was to identify the limitations of using stomatal optimization models to predict the physiological process of tree behavior (conductance, leaf temperature, hydraulics) during hot-droughts.
 
 For more information visit the [project page](https://forestecophys-osu.github.io/som-cottonwood-leaf-cooling/).
 
