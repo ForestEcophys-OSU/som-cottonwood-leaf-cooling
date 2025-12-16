@@ -13,11 +13,21 @@ permalink: /
 - [Table of Contents](#table-of-contents)
 - [Intro](#intro)
 - [Poster](#poster)
+- [garisom-tools](#garisom-tools)
+- [Note on Parameter Optimization](#note-on-parameter-optimization)
 - [Extra Figures](#extra-figures)
   - [Treatment Averages](#treatment-averages)
+    - [Leaf-to-air temperature difference predictions from models fit on leaf temperature measurements](#leaf-to-air-temperature-difference-predictions-from-models-fit-on-leaf-temperature-measurements)
+    - [Stomatal conductance predictions from models fit on midday hydraulic pressure](#stomatal-conductance-predictions-from-models-fit-on-midday-hydraulic-pressure)
+    - [Leaf-to-air temperature difference predictions from models fit on midday hydraulic pressure](#leaf-to-air-temperature-difference-predictions-from-models-fit-on-midday-hydraulic-pressure)
   - [Leaf-to-air Temperature Difference](#leaf-to-air-temperature-difference)
+    - [JLA (1521m source elevation) population predictions](#jla-1521m-source-elevation-population-predictions)
+    - [CCR (72m source elevation) population predictions](#ccr-72m-source-elevation-population-predictions)
+    - [Prediction comparison across Sperry, Zhu, and Guo model with parameters fit on leaf temperature for CCR population](#prediction-comparison-across-sperry-zhu-and-guo-model-with-parameters-fit-on-leaf-temperature-for-ccr-population)
   - [Error Plots](#error-plots)
   - [Transpiration and Stomatal Conductance Predictions over Time](#transpiration-and-stomatal-conductance-predictions-over-time)
+    - [Transpiration predictions over time for lowest and highest elevation source populations](#transpiration-predictions-over-time-for-lowest-and-highest-elevation-source-populations)
+    - [Stomatal conductance predictions over time for lowest and highest elevation source populations](#stomatal-conductance-predictions-over-time-for-lowest-and-highest-elevation-source-populations)
 - [Citations](#citations)
 
 ---
@@ -35,44 +45,81 @@ We also release a Python package [garisom-tools](https://github.com/colinpannikk
     <img src="{{ '/assets/images/poster.jpg' | relative_url }}" alt="Poster" style="max-width:100%; cursor: zoom-in;" />
 </a>
 
+## garisom-tools
+
+Check out the [garisom-tools](https://github.com/colinpannikkat/garisom-tools/) repository!.
+
+## Note on Parameter Optimization
+
+For the following figures, when there is a reference to "optimizing on...", or "fit on...", this means that some model parameters were optimized according to measured plant data, such as leaf temperature, stomatal conductance, or hydraulic pressure. For example, optimizing on leaf temperature means that we tuned parameters until the predicted leaf temperature from the model was close enough to the measured leaf temperature. In any case, hyperparameter optimization is not guaranteed to find an optimal solution within the parameter search space. This may simply be due to a small set of data to optimize on, a limit on computation time, or a lack of expressiveness within the model. 
+
 ## Extra Figures
 ### Treatment Averages
 
+The following figures showcase treatment averages for 
+1. Leaf-to-air temperature difference predictions from models fit on leaf temperature measurements.
+2. Stomatal conductance predictions from models fit on midday hydraulic pressure.
+3. Leaf-to-air temperature difference predictions from models fit on midday hydraulic pressure.
+
+#### Leaf-to-air temperature difference predictions from models fit on leaf temperature measurements
 <a href="{{ '/assets/images/figures/treatment-averages_leaf-air_optim-leaftemp.png' | relative_url }}" target="_blank">
     <img src="{{ '/assets/images/figures/treatment-averages_leaf-air_optim-leaftemp.png' | relative_url }}" alt="Treatment Averages: Leaf-to-air difference when optimized on leaftemp" style="max-width:100%; cursor: zoom-in;" />
 </a>
 
+The trend showcased in Figure 1 on the poster for the 72m population remains true for all populations, showcasing accurate and consistent prediction for pre-drought leaf temperature, but failing to represent the large leaf temperature increases over air temperature in the drought periods.
+
+#### Stomatal conductance predictions from models fit on midday hydraulic pressure
 <a href="{{ '/assets/images/figures/treatment-averages_GW_optim-P-MD.png' | relative_url }}" target="_blank">
     <img src="{{ '/assets/images/figures/treatment-averages_GW_optim-P-MD.png' | relative_url }}" alt="Treatment Averages: GW when optimized on P-MD" style="max-width:100%; cursor: zoom-in;" />
 </a>
 
+#### Leaf-to-air temperature difference predictions from models fit on midday hydraulic pressure
 <a href="{{ '/assets/images/figures/treatment-averages_leaf-air_optim-P-MD.png' | relative_url }}" target="_blank">
     <img src="{{ '/assets/images/figures/treatment-averages_leaf-air_optim-P-MD.png' | relative_url }}" alt="Treatment Averages: Leaf-to-air difference when optimized on P-MD" style="max-width:100%; cursor: zoom-in;" />
 </a>
 
+Optimizing on hydraulic pressure results in a significant predictive performance decrease in comparison to optimizing on leaf temperature. Stomatal conductance is heavily underpredicted in the pre-drought period, and only one population model has an accurate pre-drought leaf temperature. This contrast between optimizing on hydraulics and leaf temperature indicates that the hydraulic behavior represented by the model is unable to simultaneously represent energy balances accurately. While the real-life behavior of the saplings allow for high hydraulics pressures and high stomatal conductance, the models predict significantly lower stomatal conductance if those hydraulic pressures were to be sustained.
+
 ### Leaf-to-air Temperature Difference
 
-JLA (1521m source elevation) population predictions
+#### JLA (1521m source elevation) population predictions
 <a href="{{ '/assets/images/figures/leaft-air-diff_optim-leaftemp_pop-jla.png' | relative_url }}" target="_blank">
-    <img src="{{ '/assets/images/figures/leaft-air-diff_optim-leaftemp_pop-jla.png' | relative_url }}" alt="Predicted vs. Measured Leaf-Air Temperature Difference (fit on leaf temperature)" style="max-width:100%; cursor: zoom-in;" />
+    <img src="{{ '/assets/images/figures/leaft-air-diff_optim-leaftemp_pop-jla.png' | relative_url }}" alt="Predicted vs. Measured Leaf-Air Temperature Difference (fit on leaf temperature, pop jla)" style="max-width:100%; cursor: zoom-in;" />
 </a>
 
 <a href="{{ '/assets/images/figures/leaft-air-diff_optim-P-MD_pop-jla.png' | relative_url }}" target="_blank">
     <img src="{{ '/assets/images/figures/leaft-air-diff_optim-P-MD_pop-jla.png' | relative_url }}" alt="Predicted vs. Measured Leaf-Air Temperature Difference (fit on P-MD, pop jla)" style="max-width:100%; cursor: zoom-in;" />
 </a>
 
-CCR (72m source elevation) population predictions
+#### CCR (72m source elevation) population predictions
 <a href="{{ '/assets/images/figures/leaft-air-diff_optim-P-MD_pop-ccr.png' | relative_url }}" target="_blank">
     <img src="{{ '/assets/images/figures/leaft-air-diff_optim-P-MD_pop-ccr.png' | relative_url }}" alt="Predicted vs. Measured Leaf-Air Temperature Difference (fit on P-MD, pop ccr)" style="max-width:100%; cursor: zoom-in;" />
 </a>
 
-Comparison across Sperry, Zhu, and Guo model, parameters fit on leaf temperature
+The three figures above act as a supplement for our reasoning that cooler-adapted plant behavior is better represented by the model than hot-adapted plant behavior. While there are significant differences in leaf temperature predictions for the lowest-elevation population (CCR) between models fit to energy balance and models fit to hydraulics, the differences in predictions fall apart when analyzed with the plant traits and measurements of the highest-elevation population (JLA). In fact, the predicted leaf temperature behavior is almost *exactly the same* for the JLA population between fits, with both predicting a constant, close to zero leaf-to-air temperature difference across time. Similar to the decoupling of hydraulics and leaf temperature, these results are indicative of differences in tree physiology that are revealed by the difference in predictive performance of the model. High-elevation populations being cooler-adapted due to facing lower environment temperatures, thus never having to decouple hydraulics from energy balance in order to drive leaf temperatures below air temperature in hot-environments. The lower-elevation populations however, are hotter-adapted and decouple their hydraulics from their leaf energy balances, therein resulting in significant predictive differences in behavior.
+
+#### Prediction comparison across Sperry, Zhu, and Guo model with parameters fit on leaf temperature for CCR population
 <a href="{{ '/assets/images/figures/model_comparison_leaft-air-diff.png' | relative_url }}" target="_blank">
     <img src="{{ '/assets/images/figures/model_comparison_leaft-air-diff.png' | relative_url }}" alt="Predicted vs. Measured Leaf-Air Temperature Difference (Sperry, Zhu, Guo)" style="max-width:100%; cursor: zoom-in;" />
 </a>
 
+This plot shows the Sperry model predictions, along with two other stomatal optimization models that we ran with the collected data. 
+
+The Zhu model (Zhu et al. 2023) maximizes the weighted trade-off between the normalized gain of carbon and normalized hydraulic risk characterized by the ratio of evapotranspiration to the critical evapotranspiration rate. The normalization term in the model is represented by percent loss of conductivity, where it is assumed that as PLC increases, stomata will close with plant behavior more focused on hydraulic risk rather than carbon gain. The Zhu model performs noticeably better in predicting leaf temperature over the Sperry model, but still fails to achieve the large leaf temperature increases observed in the measured data.
+
+The Guo model (Guo et al. 2022) is a leaf trait based energy balance model which utilizes the iterative form of leaf energy budget balancing and the Medlyn SOM (Medlyn BE et al. 2013) to determine the optimal leaf temperature at a singular timestep. Since the Guo model uses more contemporary calculations of the leaf energy budget (specifically boundary layer conductance) we expected the model to more accurately predict leaf temperatures, but the lack of data required to parameterize the stomatal slope g1 meant that a rough estimation from previous literature was used. Nonetheless, after fitting to pre-drought leaf temperature, it resulted in poor performance for drought period prediction.
+
+
 ### Error Plots
 Error plots for different optimization variables.
+
+Error was quantified using three different metrics. Mean absolute percent error (MAPE), interval overlap, and normalized Nash-Sutcliffe Efficiency (NNSE).
+
+| Metric| Formula| Advantages| Disadvantages| Interpretation|
+|---|---|---|---|---|
+| MAPE| ![MAPE](https://latex.codecogs.com/svg.image?\frac{1}{n}\sum_{i=1}^{n}\left\|\frac{y_i-\hat{y}_i}{y_i}\right\|) | Scale-invariant<br>Easy to interpret and compare between different outputs    | Influenced by outliers<br>Doesn’t account for prediction or measurement uncertainty             | Lower is better.<br>Below 0.5 is typically seen as better than chance error.                    |
+| Interval Overlap | ![Interval Overlap](https://latex.codecogs.com/svg.image?\frac{\|I_{pred}\cap I_{obs}\|}{\|I_{pred}\cup I_{obs}\|}) | Scaled between 0 and 1<br>Takes into account parameter and measurement uncertainty | Overly wide intervals can result in good performance but poor prediction                        | Higher is better.                                                                               |
+| NNSE| ![NNSE](https://latex.codecogs.com/svg.image?\frac{1}{2-[1-\frac{\sum_{i=1}^{n}(y_i-\hat{y}_i)^2}{\sum_{i=1}^{n}(y_i-\bar{y})^2}]}) | Scaled between 0 and 1<br>Takes into account variability of data<br>Measures performance of model relative to naive baseline (average of the data) | Sensitive to outliers and variance of data (less data means less informative about performance) | Higher is better.<br>NNSE of 0.5 indicates the model has the same predictive skill as the mean of the time series. |
 
 <a href="{{ '/assets/images/figures/errors_optim-GW.png' | relative_url }}" target="_blank">
     <img src="{{ '/assets/images/figures/errors_optim-GW.png' | relative_url }}" alt="Error metrics for outputs optimized on GW" style="max-width:100%; cursor: zoom-in;" />
@@ -87,7 +134,7 @@ Error plots for different optimization variables.
 </a>
 
 ### Transpiration and Stomatal Conductance Predictions over Time
-Transpiration predictions over time for lowest and highest elevation source populations, with parameters optimized on different measurement variables.
+#### Transpiration predictions over time for lowest and highest elevation source populations
 <a href="{{ '/assets/images/figures/E-MD_high-low-pop-compare_ground-and-pred_fit-on-GW.png' | relative_url }}" target="_blank">
     <img src="{{ '/assets/images/figures/E-MD_high-low-pop-compare_ground-and-pred_fit-on-GW.png' | relative_url }}" alt="Predicted vs Ground: E-MD optimized on GW" style="max-width:100%; cursor: zoom-in;" />
 </a>
@@ -100,7 +147,7 @@ Transpiration predictions over time for lowest and highest elevation source popu
     <img src="{{ '/assets/images/figures/E-MD_high-low-pop-compare_ground-and-pred_fit-on-P-MD.png' | relative_url }}" alt="Predicted vs Ground: E-MD optimized on P-MD" style="max-width:100%; cursor: zoom-in;" />
 </a>
 
-Stomatal conductance predictions over time for lowest and highest elevation source populations, with parameters optimized on different measurement variables.
+#### Stomatal conductance predictions over time for lowest and highest elevation source populations
 
 <a href="{{ '/assets/images/figures/GW_high-low-pop-compare_ground-and-pred_fit-on-GW.png' | relative_url }}" target="_blank">
     <img src="{{ '/assets/images/figures/GW_high-low-pop-compare_ground-and-pred_fit-on-GW.png' | relative_url }}" alt="Predicted vs Ground: GW optimized on GW" style="max-width:100%; cursor: zoom-in;" />
