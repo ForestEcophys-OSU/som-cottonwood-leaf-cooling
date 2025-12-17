@@ -13,7 +13,6 @@ permalink: /
 - [Table of Contents](#table-of-contents)
 - [Intro](#intro)
 - [Poster](#poster)
-- [garisom-tools](#garisom-tools)
 - [Note on Parameter Optimization](#note-on-parameter-optimization)
 - [Extra Figures](#extra-figures)
   - [Treatment Averages](#treatment-averages)
@@ -44,10 +43,6 @@ We also release a Python package [garisom-tools](https://github.com/colinpannikk
 <a href="{{ '/assets/images/poster.jpg' | relative_url }}" target="_blank">
     <img src="{{ '/assets/images/poster.jpg' | relative_url }}" alt="Poster" style="max-width:100%; cursor: zoom-in;" />
 </a>
-
-## garisom-tools
-
-Check out the [garisom-tools](https://github.com/colinpannikkat/garisom-tools/) repository!.
 
 ## Note on Parameter Optimization
 
