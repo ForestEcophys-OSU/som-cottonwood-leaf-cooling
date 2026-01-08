@@ -11,6 +11,8 @@ PAR_limit(PAR_limit < 30) = 0;
 meteo(:, 3) = PAR_limit;
 n = length(meteo);
 
+output = readtable("output-template.csv");
+
 % % Constant wind speed
 % meteo(:, 2) = 1.16 * ones(n, 1);
 
@@ -20,6 +22,8 @@ constant.PSII = 0.7;
 constant.Phi = 0.3;
 
 g1 = 4.64; % Taken from 'Optimal stomatal behaviour around the world' for Deciduous angiosperm
+% g1 = 4.45; % Taken from 'A test of an optimal stomatal conductance scheme within the CABLE land surface model'
+% g1 = 10;
 Ci = 293.552; % intercellular CO2 concentration, set to 0.7 * Ca
 leaf_width = 0.0344;
 absorb_par = 0.8;
@@ -27,32 +31,49 @@ absorb_nir = 0.2;
 emissivity = 0.97;
 vcmax = 93.88;
 
+% % Need to ensure that this only uses the predrought leaftemp values
 if ismember('leaftemp', ground.Properties.VariableNames)
     leaftemp_obs = ground.leaftemp;
+    idx_jday = output.julian_day >= 201 & output.julian_day <= 237;
+    leaftemp_obs_sel = leaftemp_obs(idx_jday);
+    meteo_sel = meteo(idx_jday, :);
+    n_sel = sum(idx_jday);
     fun = @(g1_val) mean((trait_based_energy_balance_model( ...
-        [repmat([leaf_width, absorb_par, absorb_nir, emissivity, vcmax, g1_val], n, 1), ...
-        meteo(:, 1), meteo(:, 2), meteo(:, 3)/4.57, meteo(:, 4), 101.3*ones(n,1), 0.1*ones(n,1)], ...
-        Ci, constant) - leaftemp_obs).^2);
+        [repmat([leaf_width, absorb_par, absorb_nir, emissivity, vcmax, g1_val], n_sel, 1), ...
+        meteo_sel(:, 1), meteo_sel(:, 2), meteo_sel(:, 3)/4.57, meteo_sel(:, 4), 101.3*ones(n_sel,1), 0.1*ones(n_sel,1)], ...
+        Ci, constant) - leaftemp_obs_sel).^2);
     g1_opt = fminbnd(fun, 1, 10);
     g1 = g1_opt;
 else
     warning('No observed leaftemp found. Using default g1 value.');
 end
 
-% How should we model plant responses to drought? An analysis of stomatal  and non-stomatal responses to water stress 2013
-% Parameters taken from Quercus ilex tree
-a = 6;
-b = -0.11;
-% a = 3.15;
-% b = 0.15;
-g1_func = @(PD) a * exp(b * -PD);
+fprintf('Optimized g1 value: %.4f\n', g1);
 
-PD_range = linspace(3, 0, 100);
+% How should we model plant responses to drought? An analysis of stomatal  and non-stomatal responses to water stress 2013
+
+% Parameters taken from Quercus ilex tree (Sclerophyll angiosperm tree)
+% a = 6;
+% b = -0.11;
+
+% Median PFT values of Sclerophyll angiosperm tree
+% a = 3.15/(exp(0.15(-0.5)));
+% a = 3.3953350753;
+% b = 0.15;
+
+% Median PFT values of Malacophyll angiosperm tree
+% a = 5.85/(exp(0.66(-0.5)));
+a = 8.1371635515;
+b = 0.66;
+
+g1_func = @(PD) a * exp(b * PD);
+
+PD_range = linspace(-3, -0, 100);
 g1_values = g1_func(PD_range);
 
 figure;
 plot(PD_range, g1_values, 'LineWidth', 2);
-xlabel('Predawn Pressure (-MPa)');
+xlabel('Predawn Pressure (MPa)');
 ylabel('g1');
 title(['g1 as a Function of Predawn Pressure: ' char(population)]);
 grid on;
@@ -67,7 +88,7 @@ last_g1 = g1;
 if ismember('P_PD', ground.Properties.VariableNames)
     for i = 1:n
         if i <= height(ground) && ~isnan(ground.P_PD(i))
-            last_g1 = g1_func(ground.P_PD(i));
+            last_g1 = g1_func(-ground.P_PD(i));
         end
         g1_pred(i) = last_g1;
     end
@@ -86,8 +107,6 @@ for i=1:n
     leaftemp(i) = i_leaftemp;
     gs(i) = i_gs;
 end
-
-output = readtable("output-template.csv");
 
 % Make a copy of X and convert to table with column names
 X_table = [output.year output.julian_day output.standard_time X];
