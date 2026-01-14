@@ -65,7 +65,7 @@
         "modes": ["none"]
     },
     "workers": 32,
-    "samples": 2,
+    "samples": 8192,
     "start_day": 201,
     "end_day": 265,
     "pop": 1
