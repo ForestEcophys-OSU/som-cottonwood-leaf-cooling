@@ -1,0 +1,72 @@
+{
+    "problem": {
+        "num_vars": 17,
+        "names": [
+            "i_emiss", 
+            "i_leafWidth",
+            "i_leafAreaIndex",
+            "i_atmTrans",
+            "i_leafAngleParam",
+            "abs_nir",
+            "abs_par",
+            "abs_solar",
+            "i_baperga",
+            "i_cr",
+            "i_br",
+            "i_cs",
+            "i_bs",
+            "i_cl",
+            "i_bl",
+            "i_vmax25",
+            "i_kmaxTree"
+        ],
+        "bounds": [
+            [0, 1],
+            [1e-12, 1e-1, 0.03203, 0.00097],
+            [1e-12, 1e2, 3.61, 1.73],
+            [0, 1],
+            [0, 2],
+            [0, 1],
+            [0, 1],
+            [0, 1],
+            [1e-12, 1e3, 33.93854,  2.11462],
+            [11.3734357, 12.9745481],
+            [2.63764525, 2.97832435],
+            [11.3734357, 12.9745481],
+            [2.63764525, 2.97832435],
+            [11.3734357, 12.9745481],
+            [2.63764525, 2.97832435],
+            [1e-12, 1e3, 59.280041, 5.81],
+            [1e-12, 1e3, 275.18, 119.07]
+        ],
+        "dists" : [
+            "unif",
+            "truncnorm",
+            "truncnorm",
+            "unif",
+            "unif",
+            "unif",
+            "unif",
+            "unif",
+            "truncnorm",
+            "unif",
+            "unif",
+            "unif",
+            "unif",
+            "unif",
+            "unif",
+            "truncnorm",
+            "truncnorm"
+        ]
+    },
+    "metric": {
+        "params": ["beta"],
+        "metrics": ["none"],
+        "modes": ["none"]
+    },
+    "workers": 32,
+    "samples": 8192,
+    "start_day": 201,
+    "end_day": 265,
+    "pop": 4
+}
