@@ -14,3 +14,4 @@ __pycache__
 
 garisom_hyperparam_search
 raytune_hyperparam_search
+website/*
