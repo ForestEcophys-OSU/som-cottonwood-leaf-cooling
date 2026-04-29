@@ -1,0 +1,18 @@
+{
+    "space": {
+        "LA": ["uniform", [0.01, 1.0]],
+        "omega": ["uniform", [0.0, 1.0]],
+        "theta": ["uniform", [0.0, 1.0]],
+        "xi": ["uniform", [0.0, 1.0]]
+    },
+    "metric": {
+        "params": ["leaftemp", "GW", "E-MD"],
+        "metrics": ["mse", "mape", "mape"],
+        "modes": ["min", "min", "min"]
+    },
+    "num_worker": -1,
+    "num_samples": 200,
+    "population": 1,
+    "start_date": "2023-07-20",
+    "end_date": "2023-08-24"
+}
