@@ -28,8 +28,6 @@ K_c_func, K_o_func, R_d_func, ...
 rho, m, g, C_p, emiss, sigma, V_w, R, ...
 NSL_c_func, NSL_j_func, r_func);
 
-P_x_l_vect
-
 % plot
 figure
 tiledlayout(2,1)
